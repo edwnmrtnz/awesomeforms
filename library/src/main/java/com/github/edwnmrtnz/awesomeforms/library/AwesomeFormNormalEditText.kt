@@ -27,9 +27,7 @@ import com.google.android.material.textfield.TextInputLayout
 class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
 
     private val tvFieldLabel by lazy { findViewById<AppCompatTextView>(R.id.tvFieldLabelTitle) }
-
     private val tlField by lazy { findViewById<TextInputLayout>(R.id.tlField) }
-
     private val tvAssistiveText by lazy { findViewById<AppCompatTextView>(R.id.tvAssistiveText) }
 
     @StyleableChild(R2.styleable.AwesomeFormNormalEditText_fieldStyle)
@@ -58,30 +56,6 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
                 //Ignore
             }
         })
-    }
-
-    fun removeError() {
-        isErrorEnabled = false
-        tlField.boxStrokeColor = ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
-        tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
-        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
-        tlField.boxStrokeColor = ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
-
-        if(assistiveText != null) {
-            tvAssistiveText.visibility = View.VISIBLE
-            tvAssistiveText.text = assistiveText
-        } else {
-            tvAssistiveText.visibility = View.GONE
-        }
-    }
-
-    fun setError(errorMessage : String) {
-        isErrorEnabled = true
-        tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
-        tvAssistiveText.visibility = View.VISIBLE
-        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
-        tvAssistiveText.text = errorMessage
-        tlField.boxStrokeColor = ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
     }
 
     @Attr(R2.styleable.AwesomeFormNormalEditText_fieldLabel)
@@ -137,7 +111,6 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
         this.etField.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLength))
     }
 
-
     @Attr(R2.styleable.AwesomeFormNormalEditText_android_focusable)
     fun setIsFocusable(isFocusable : Boolean) {
         this.etField.isFocusable = isFocusable
@@ -152,4 +125,35 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
     fun setIsClickable(isClickable : Boolean) {
         this.etField.isClickable = isClickable
     }
+
+    fun removeError() {
+        isErrorEnabled = false
+        tlField.boxStrokeColor = ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
+        tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
+        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
+        tlField.boxStrokeColor = ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
+
+        if(assistiveText != null) {
+            tvAssistiveText.visibility = View.VISIBLE
+            tvAssistiveText.text = assistiveText
+        } else {
+            tvAssistiveText.visibility = View.GONE
+        }
+    }
+
+    fun setError(errorMessage : String) {
+        isErrorEnabled = true
+        tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+        tvAssistiveText.visibility = View.VISIBLE
+        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+        tvAssistiveText.text = errorMessage
+        tlField.boxStrokeColor = ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
+    }
+
+    fun getEditText() = etField
+
+    fun setText(text : String) = etField.setText(text)
+
+    fun getText() = etField.text.toString()
+
 }
