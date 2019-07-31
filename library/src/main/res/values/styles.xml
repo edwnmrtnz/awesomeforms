@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    
+
+    <style name="AwesomeForm.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="hintTextColor">@color/AwesomeForm_hintColor</item>
+        <item name="boxStrokeColor">@color/material_textinputlayout_box_color</item>
+    </style>
+
+    <style name="AwesomeForm.EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/AwesomeForm_hintColor</item>
+    </style>
+
+    <style name="AwesomeForm.EditText.TextAppearance" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+</resources>
