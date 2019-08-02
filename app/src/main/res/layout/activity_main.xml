@@ -13,7 +13,6 @@
         app:fieldLabel="First Name"
         android:inputType="numberDecimal"
         android:imeOptions="actionDone"
-        app:fieldStyle="@style/AwesomeForm.EditText.Sample"
         app:assistiveText="Required"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -25,5 +24,24 @@
         app:assistiveText="Required"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormNormalEditText
+            android:layout_marginTop="20dp"
+            android:id="@+id/etNumber"
+            app:fieldLabel="Number"
+            app:fieldStyle="@style/AwesomeForm.EditText.NumberEditText"
+            app:assistiveText="Required"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormPasswordEditText
+            android:layout_marginTop="20dp"
+            android:id="@+id/etPassword"
+            app:endIconDrawable="@drawable/password_toggle"
+            app:fieldLabel="Last Name"
+            app:assistiveText="Required"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>
