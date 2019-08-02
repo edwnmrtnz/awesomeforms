@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">library</string>
+
+    <string-array name="exposed_dropdown_content">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Dead</item>
+        <item>Not Available</item>
+    </string-array>
 </resources>

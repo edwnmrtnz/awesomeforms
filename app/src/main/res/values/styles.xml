@@ -8,11 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AwesomeForm.EditText.Sample">
+    <style name="AwesomeForm.EditText.NumberEditText">
         <item name="android:textSize">40sp</item>
         <item name="android:textColor">@color/AwesomeForm_hintColor</item>
+        <item name="android:inputType">number</item>
     </style>
-
 
 </resources>
 

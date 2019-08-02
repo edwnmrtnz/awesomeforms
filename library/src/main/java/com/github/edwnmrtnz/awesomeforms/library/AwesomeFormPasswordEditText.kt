@@ -1,6 +1,7 @@
 package com.github.edwnmrtnz.awesomeforms.library
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.Editable
 import android.text.InputFilter
@@ -23,21 +24,21 @@ import com.google.android.material.textfield.TextInputLayout
  * Created by edwinmartinez on July 31, 2019
  */
 
-@Styleable("AwesomeFormNormalEditText")
-class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
+@Styleable("AwesomeFormPasswordEditText")
+class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
 
     private val tvFieldLabel by lazy { findViewById<AppCompatTextView>(R.id.tvFieldLabelTitle) }
     private val tlField by lazy { findViewById<TextInputLayout>(R.id.tlField) }
     private val tvAssistiveText by lazy { findViewById<AppCompatTextView>(R.id.tvAssistiveText) }
 
-    @StyleableChild(R2.styleable.AwesomeFormNormalEditText_fieldStyle)
+    @StyleableChild(R2.styleable.AwesomeFormPasswordEditText_fieldStyle)
     internal val etField by lazy { findViewById<AppCompatEditText>(R.id.etField) }
 
     private var isErrorEnabled = false
     private var assistiveText : String? = null
 
     init {
-        View.inflate(context, R.layout.awesomeform_normal_edittext, this)
+        View.inflate(context, R.layout.awesomeform_password_edittext, this)
         style(attrs)
         textChangeListener()
     }
@@ -58,70 +59,85 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
         })
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_fieldLabel)
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_startIconDrawable)
+    fun setStartIconDrawable(drawable: Drawable) {
+        this.tlField.setStartIconDrawable(drawable)
+    }
+
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_endIconDrawable)
+    fun setEndIconDrawable(drawable: Drawable) {
+        this.tlField.setEndIconDrawable(drawable)
+    }
+
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_endIconMode)
+    fun setEndIconMode(mode: Int = TextInputLayout.END_ICON_PASSWORD_TOGGLE) {
+        this.tlField.endIconMode = mode
+    }
+
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_fieldLabel)
     fun setFieldLabel(fieldLabel : String) {
         this.tvFieldLabel.text = fieldLabel
         this.tvFieldLabel.visibility = View.VISIBLE
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_fieldLabelTextColor)
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_fieldLabelTextColor)
     fun setFieldLabelTextColor(fieldLabelTextColor : Int) {
         this.tvFieldLabel.setTextColor(fieldLabelTextColor)
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_assistiveText)
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_assistiveText)
     fun setAssistiveText(assistiveText : String) {
         this.assistiveText = assistiveText
         this.tvAssistiveText.text = assistiveText
         this.tvAssistiveText.visibility = View.VISIBLE
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_assistiveTextColor)
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_assistiveTextColor)
     fun setAssistiveTextColor(assistiveTextColor: Int) {
         this.tvAssistiveText.setTextColor(assistiveTextColor)
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_placeholderText)
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_placeholderText)
     fun setPlaceHolderText(placeHolderText : String) {
         this.etField.hint = placeHolderText
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_placeholderTextColor)
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_placeholderTextColor)
     fun setPlaceHolderTextColor(placeHolderTextColor : Int) {
         this.etField.setHintTextColor(placeHolderTextColor)
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_imeOptions)
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_android_imeOptions)
     fun setImeOptions(imeOptions : Int) {
         this.etField.imeOptions = imeOptions
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_inputType)
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_android_inputType)
     fun setInputType(inputType : Int) {
         this.etField.inputType = inputType
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_maxLines)
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_android_maxLines)
     fun setMaxLines(maxLine : Int) {
         this.etField.maxLines = maxLine
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_maxLength)
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_android_maxLength)
     fun setMaxLength(maxLength : Int) {
         this.etField.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLength))
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_focusable)
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_android_focusable)
     fun setIsFocusable(isFocusable : Boolean) {
         this.etField.isFocusable = isFocusable
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_focusableInTouchMode)
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_android_focusableInTouchMode)
     fun setIsFocusableInTouchMode(isFocusableInTouchMode : Boolean) {
         this.etField.isFocusableInTouchMode = isFocusableInTouchMode
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_clickable)
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_android_clickable)
     fun setIsClickable(isClickable : Boolean) {
         this.etField.isClickable = isClickable
     }
