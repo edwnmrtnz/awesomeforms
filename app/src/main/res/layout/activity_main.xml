@@ -38,7 +38,16 @@
             android:layout_marginTop="20dp"
             android:id="@+id/etPassword"
             app:endIconDrawable="@drawable/password_toggle"
-            app:fieldLabel="Last Name"
+            app:fieldLabel="Password"
+            app:assistiveText="Required"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormSpinnerEditText
+            android:layout_marginTop="20dp"
+            android:id="@+id/etGender"
+            app:placeholderText="Item1"
+            app:fieldLabel="Items"
             app:assistiveText="Required"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

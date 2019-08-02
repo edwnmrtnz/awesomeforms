@@ -24,7 +24,6 @@
         <attr name="android:inputType"/>
         <attr name="android:maxLines"/>
         <attr name="android:maxLength"/>
-        <attr name="android:hint"/>
         <attr name="android:focusable"/>
         <attr name="android:clickable"/>
         <attr name="android:focusableInTouchMode"/>
@@ -32,8 +31,8 @@
 
     <declare-styleable name="AwesomeFormPasswordEditText">
         <attr name="fieldLabel"/>
-        <attr name="assistiveText"/>
         <attr name="fieldLabelTextColor"/>
+        <attr name="assistiveText"/>
         <attr name="assistiveTextColor"/>
         <attr name="placeholderText"/>
         <attr name="placeholderTextColor"/>
@@ -47,11 +46,25 @@
         <attr name="android:inputType"/>
         <attr name="android:maxLines"/>
         <attr name="android:maxLength"/>
-        <attr name="android:hint"/>
         <attr name="android:focusable"/>
         <attr name="android:clickable"/>
         <attr name="android:focusableInTouchMode"/>
     </declare-styleable>
 
+    <declare-styleable name="AwesomeFormSpinnerEditText">
+        <attr name="fieldLabel"/>
+        <attr name="fieldLabelTextColor"/>
+        <attr name="assistiveText"/>
+        <attr name="assistiveTextColor"/>
+        <attr name="placeholderText"/>
+        <attr name="placeholderTextColor"/>
+        <attr name="textColor"/>
+        <attr name="fieldStyle"/>
+        <attr name="android:maxLines"/>
+        <attr name="android:maxLength"/>
+        <attr name="android:focusable"/>
+        <attr name="android:clickable"/>
+        <attr name="android:focusableInTouchMode"/>
+    </declare-styleable>
 
 </resources>
