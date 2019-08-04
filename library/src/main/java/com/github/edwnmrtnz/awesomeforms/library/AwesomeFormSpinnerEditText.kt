@@ -2,50 +2,48 @@ package com.github.edwnmrtnz.awesomeforms.library
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
-import androidx.appcompat.widget.AppCompatEditText
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.widget.TextViewCompat
 import com.airbnb.paris.annotations.Attr
 import com.airbnb.paris.annotations.Styleable
 import com.airbnb.paris.annotations.StyleableChild
 import com.airbnb.paris.extensions.style
-import com.airbnb.paris.utils.getStyle
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 /**
  * Created by edwinmartinez on July 31, 2019
  */
 
-@Styleable("AwesomeFormNormalEditText")
-class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
+@Styleable("AwesomeFormSpinnerEditText")
+class AwesomeFormSpinnerEditText (context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
 
     private val tvFieldLabel by lazy { findViewById<AppCompatTextView>(R.id.tvFieldLabelTitle) }
     private val tlField by lazy { findViewById<TextInputLayout>(R.id.tlField) }
     private val tvAssistiveText by lazy { findViewById<AppCompatTextView>(R.id.tvAssistiveText) }
 
-    @StyleableChild(R2.styleable.AwesomeFormNormalEditText_fieldStyle)
-    internal val etField by lazy { findViewById<AppCompatEditText>(R.id.etField) }
+    @StyleableChild(R2.styleable.AwesomeFormSpinnerEditText_fieldStyle)
+    internal val tvField by lazy { findViewById<AutoCompleteTextView>(R.id.tvField) }
 
     private var isErrorEnabled = false
     private var assistiveText : String? = null
 
     init {
-        View.inflate(context, R.layout.awesomeform_normal_edittext, this)
+        View.inflate(context, R.layout.awesomeform_spinner_edittext, this)
         style(attrs)
         textChangeListener()
     }
 
     private fun textChangeListener() {
-        etField.addTextChangedListener(object : TextWatcher {
+        tvField.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 if(isErrorEnabled) {
                     removeError()
@@ -60,88 +58,67 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
         })
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_startIconDrawable)
+    @Attr(R2.styleable.AwesomeFormSpinnerEditText_startIconDrawable)
     fun setStartIconDrawable(drawable: Drawable) {
         this.tlField.startIconDrawable = drawable
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_endIconDrawable)
-    fun setEndIconDrawable(drawable: Drawable) {
-        this.tlField.endIconDrawable = drawable
-        this.setEndIconMode(TextInputLayout.END_ICON_CUSTOM)
-    }
-
-    @Attr(R2.styleable.AwesomeFormNormalEditText_endIconMode)
-    fun setEndIconMode(mode: Int = TextInputLayout.END_ICON_NONE) {
-        this.tlField.endIconMode = mode
-    }
-
-    @Attr(R2.styleable.AwesomeFormNormalEditText_fieldLabel)
+    @Attr(R2.styleable.AwesomeFormSpinnerEditText_fieldLabel)
     fun setFieldLabel(fieldLabel : String) {
         this.tvFieldLabel.text = fieldLabel
         this.tvFieldLabel.visibility = View.VISIBLE
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_fieldLabelTextColor)
+    @Attr(R2.styleable.AwesomeFormSpinnerEditText_fieldLabelTextColor)
     fun setFieldLabelTextColor(fieldLabelTextColor : Int) {
         this.tvFieldLabel.setTextColor(fieldLabelTextColor)
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_assistiveText)
+    @Attr(R2.styleable.AwesomeFormSpinnerEditText_assistiveText)
     fun setAssistiveText(assistiveText : String) {
         this.assistiveText = assistiveText
         this.tvAssistiveText.text = assistiveText
         this.tvAssistiveText.visibility = View.VISIBLE
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_assistiveTextColor)
+    @Attr(R2.styleable.AwesomeFormSpinnerEditText_assistiveTextColor)
     fun setAssistiveTextColor(assistiveTextColor: Int) {
         this.tvAssistiveText.setTextColor(assistiveTextColor)
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_placeholderText)
+    @Attr(R2.styleable.AwesomeFormSpinnerEditText_placeholderText)
     fun setPlaceHolderText(placeHolderText : String) {
-        this.etField.hint = placeHolderText
+        this.tvField.hint = placeHolderText
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_placeholderTextColor)
+    @Attr(R2.styleable.AwesomeFormSpinnerEditText_placeholderTextColor)
     fun setPlaceHolderTextColor(placeHolderTextColor : Int) {
-        this.etField.setHintTextColor(placeHolderTextColor)
+        this.tvField.setHintTextColor(placeHolderTextColor)
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_imeOptions)
-    fun setImeOptions(imeOptions : Int) {
-        this.etField.imeOptions = imeOptions
-    }
-
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_inputType)
-    fun setInputType(inputType : Int) {
-        this.etField.inputType = inputType
-    }
-
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_maxLines)
+    @Attr(R2.styleable.AwesomeFormSpinnerEditText_android_maxLines)
     fun setMaxLines(maxLine : Int) {
-        this.etField.maxLines = maxLine
+        this.tvField.maxLines = maxLine
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_maxLength)
+    @Attr(R2.styleable.AwesomeFormSpinnerEditText_android_maxLength)
     fun setMaxLength(maxLength : Int) {
-        this.etField.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLength))
+        this.tvField.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLength))
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_focusable)
+    @Attr(R2.styleable.AwesomeFormSpinnerEditText_android_focusable)
     fun setIsFocusable(isFocusable : Boolean) {
-        this.etField.isFocusable = isFocusable
+        this.tvField.isFocusable = isFocusable
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_focusableInTouchMode)
+    @Attr(R2.styleable.AwesomeFormSpinnerEditText_android_focusableInTouchMode)
     fun setIsFocusableInTouchMode(isFocusableInTouchMode : Boolean) {
-        this.etField.isFocusableInTouchMode = isFocusableInTouchMode
+        this.tvField.isFocusableInTouchMode = isFocusableInTouchMode
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_clickable)
+    @Attr(R2.styleable.AwesomeFormSpinnerEditText_android_clickable)
     fun setIsClickable(isClickable : Boolean) {
-        this.etField.isClickable = isClickable
+        this.tvField.isClickable = isClickable
     }
 
     fun removeError() {
@@ -168,10 +145,14 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
         tlField.boxStrokeColor = ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
     }
 
-    fun getEditText() = etField
+    fun getAutoCompleteTextView() = tvField
 
-    fun setText(text : String) = etField.setText(text)
+    fun setAdapter(adapter: ArrayAdapter<*>) {
+        tvField.setAdapter(adapter)
+    }
 
-    fun getText() = etField.text.toString()
+    fun setText(text : String) = tvField.setText(text)
+
+    fun getText() = tvField.text.toString()
 
 }
