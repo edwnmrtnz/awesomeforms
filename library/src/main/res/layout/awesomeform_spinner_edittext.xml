@@ -47,7 +47,6 @@
             tools:text="Required"
             tools:visibility="visible" />
 
-
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tlField"
             style="@style/AwesomeForm.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -58,21 +57,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvFieldLabelTitle">
+
         <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/tvField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
+                android:editable="true"
+                android:enabled="false"
                 tools:hint="Please select something"
                 android:includeFontPadding="false"
-                android:firstBaselineToTopHeight="0dp"
                 android:maxLines="1"
-                android:editable="false"
-                android:background="@color/null_"
                 android:textColor="@color/AwesomeForm_textColor"
-                android:textCursorDrawable="@drawable/color_cursor"
-                style="@style/AwesomeForm.EditText.TextAppearance"
-                android:imeOptions="flagNoExtractUi"/>
+                android:imeOptions="flagNoExtractUi"
+                tools:ignore="Deprecated"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

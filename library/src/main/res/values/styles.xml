@@ -1,12 +1,12 @@
 <resources>
-    
 
     <style name="AwesomeForm.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="hintTextColor">@color/AwesomeForm_hintColor</item>
         <item name="boxStrokeColor">@color/material_textinputlayout_box_color</item>
     </style>
 
-    <style name="AwesomeForm.TextInputLayout.OutlinedBox.ExposedDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+    <style name="AwesomeForm.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+           parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
         <item name="hintTextColor">@color/AwesomeForm_hintColor</item>
         <item name="boxStrokeColor">@color/material_textinputlayout_box_color</item>
         <item name="android:paddingStart">2dp</item>
@@ -18,8 +18,15 @@
         <item name="android:textColor">@color/AwesomeForm_hintColor</item>
     </style>
 
+    <style name="AwesomeForm.AutoCompleteTextView" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/AwesomeForm_hintColor</item>
+
+    </style>
+
     <style name="AwesomeForm.EditText.TextAppearance" parent="TextAppearance.AppCompat.Title">
         <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
     </style>
 
 </resources>

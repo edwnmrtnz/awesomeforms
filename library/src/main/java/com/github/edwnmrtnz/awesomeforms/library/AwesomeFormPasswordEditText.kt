@@ -2,7 +2,6 @@ package com.github.edwnmrtnz.awesomeforms.library
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
@@ -12,13 +11,14 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.widget.TextViewCompat
 import com.airbnb.paris.annotations.Attr
 import com.airbnb.paris.annotations.Styleable
 import com.airbnb.paris.annotations.StyleableChild
 import com.airbnb.paris.extensions.style
-import com.airbnb.paris.utils.getStyle
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.android.material.textfield.TextInputLayout.END_ICON_NONE
+import com.google.android.material.textfield.TextInputLayout.END_ICON_PASSWORD_TOGGLE
 
 /**
  * Created by edwinmartinez on July 31, 2019
@@ -32,7 +32,7 @@ class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : Cons
     private val tvAssistiveText by lazy { findViewById<AppCompatTextView>(R.id.tvAssistiveText) }
 
     @StyleableChild(R2.styleable.AwesomeFormPasswordEditText_fieldStyle)
-    internal val etField by lazy { findViewById<AppCompatEditText>(R.id.etField) }
+    internal val etField by lazy { findViewById<TextInputEditText>(R.id.etField) }
 
     private var isErrorEnabled = false
     private var assistiveText : String? = null
@@ -61,17 +61,28 @@ class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : Cons
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_startIconDrawable)
     fun setStartIconDrawable(drawable: Drawable) {
-        this.tlField.setStartIconDrawable(drawable)
+        this.tlField.startIconDrawable = drawable
     }
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_endIconDrawable)
     fun setEndIconDrawable(drawable: Drawable) {
-        this.tlField.setEndIconDrawable(drawable)
+        this.tlField.endIconDrawable = drawable
+        this.setEndIconMode(TextInputLayout.END_ICON_CUSTOM)
     }
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_endIconMode)
-    fun setEndIconMode(mode: Int = TextInputLayout.END_ICON_PASSWORD_TOGGLE) {
+    fun setEndIconMode(mode: Int = END_ICON_PASSWORD_TOGGLE) {
         this.tlField.endIconMode = mode
+    }
+
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_passwordToggleDrawable)
+    fun setPasswordDrawableToggle(drawable: Drawable) {
+        this.tlField.passwordVisibilityToggleDrawable = drawable
+    }
+
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_passwordToggleEnabled)
+    fun setPasswordDrawableToggle(enabled: Boolean) {
+        this.tlField.endIconMode = if(enabled) END_ICON_PASSWORD_TOGGLE else END_ICON_NONE
     }
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_fieldLabel)

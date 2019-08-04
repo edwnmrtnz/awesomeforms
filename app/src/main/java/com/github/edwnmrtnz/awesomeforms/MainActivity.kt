@@ -16,10 +16,11 @@ class MainActivity : AppCompatActivity() {
         etNumber.setError("input a number")
         etPassword.setError("password required")
         etGender.setError("this field is required")
+        etText.setError("this field is required")
 
         val adapter = ArrayAdapter(
             this,
-            R.layout.exposed_dropdown_popup_item,
+            R.layout.awesomeform_dropdown_popup_item,
             resources.getStringArray(R.array.exposed_dropdown_content)
         )
 

@@ -25,7 +25,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tlField"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Password"
+            tools:text="First Name"
             tools:visibility="visible" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -47,29 +47,66 @@
             tools:text="Required"
             tools:visibility="visible" />
 
-
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tlField"
             style="@style/AwesomeForm.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="6dp"
             app:hintEnabled="false"
-            app:passwordToggleEnabled="true"
+            app:startIconDrawable="@drawable/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvFieldLabelTitle">
+            app:layout_constraintTop_toBottomOf="@+id/guideline">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/etField"
+                android:inputType="textNoSuggestions"
                 android:textColor="@color/AwesomeForm_textColor"
-                android:textStyle="normal"
-                android:inputType="textPassword"
-                android:background="@null"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:textCursorDrawable="@drawable/color_cursor" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPrefix"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:focusable="false"
+            android:textColor="@color/AwesomeForm_hintColor"
+            android:text="+63"
+            android:maxLength="3"
+            android:gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="6dp"
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <View
+            android:id="@+id/prefixDivider"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="6dp"
+            android:focusable="false"
+            android:background="@color/AwesomeForm_dividerColor"
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            app:layout_constraintStart_toEndOf="@id/tvPrefix"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guideline"
+            app:layout_constraintGuide_percent="0.30"/>
 
 </merge>

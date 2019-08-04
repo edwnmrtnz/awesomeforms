@@ -1,12 +1,12 @@
 package com.github.edwnmrtnz.awesomeforms.library
 
-import android.content.AbstractThreadedSyncAdapter
 import android.content.Context
-import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -56,6 +56,11 @@ class AwesomeFormSpinnerEditText (context: Context, attrs: AttributeSet) : Const
                 //Ignore
             }
         })
+    }
+
+    @Attr(R2.styleable.AwesomeFormSpinnerEditText_startIconDrawable)
+    fun setStartIconDrawable(drawable: Drawable) {
+        this.tlField.startIconDrawable = drawable
     }
 
     @Attr(R2.styleable.AwesomeFormSpinnerEditText_fieldLabel)
