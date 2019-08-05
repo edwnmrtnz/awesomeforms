@@ -12,7 +12,6 @@
 /captures
 .externalNativeBuild
 build
-gradle
 test
 settings.gradle.idea/misc.xml
 /.idea
