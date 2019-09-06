@@ -29,7 +29,9 @@ class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : C
     private val tlField by lazy { findViewById<TextInputLayout>(R.id.tlField) }
     private val tvAssistiveText by lazy { findViewById<AppCompatTextView>(R.id.tvAssistiveText) }
     private val prefixDivider by lazy { findViewById<View>(R.id.prefixDivider) }
-    private val tvPrefix by lazy { findViewById<AppCompatTextView>(R.id.tvPrefix) }
+
+    @StyleableChild(R2.styleable.AwesomeFormPhonePrefixEditText_prefixStyle)
+    internal val tvPrefix by lazy { findViewById<AppCompatTextView>(R.id.tvPrefix) }
 
     @StyleableChild(R2.styleable.AwesomeFormPhonePrefixEditText_fieldStyle)
     internal val etField by lazy { findViewById<AppCompatEditText>(R.id.etField) }

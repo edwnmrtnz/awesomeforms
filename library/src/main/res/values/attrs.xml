@@ -81,6 +81,7 @@
         <attr name="placeholderTextColor"/>
         <attr name="textColor"/>
         <attr name="fieldStyle"/>
+        <attr name="prefixStyle" format="reference"/>
         <attr name="endIconDrawable"/>
         <attr name="endIconMode"/>
         <attr name="prefixTextColor"/>
