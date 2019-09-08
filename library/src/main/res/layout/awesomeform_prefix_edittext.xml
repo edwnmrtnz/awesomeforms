@@ -14,12 +14,12 @@
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="0dp"
         android:background="@color/AwesomeForm_dividerColor"
         android:focusable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/tvPrefix"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toTopOf="@+id/tlField" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvAssistiveText"
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="0dp"
         android:focusable="false"
         android:gravity="center"
         android:maxLength="3"
@@ -58,7 +58,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toTopOf="@+id/tlField" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvFieldLabelTitle"
@@ -81,12 +81,7 @@
         tools:text="First Name"
         tools:visibility="visible" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.30" />
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tlField"
@@ -97,7 +92,7 @@
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/tvFieldLabelTitle"
         app:startIconDrawable="@drawable/transparent">
 
         <androidx.appcompat.widget.AppCompatEditText
