@@ -157,6 +157,7 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
         } else {
             tvAssistiveText.visibility = View.GONE
         }
+        tlField.error = null
     }
 
     fun setError(errorMessage : String) {
@@ -166,6 +167,9 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
         tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
         tvAssistiveText.text = errorMessage
         tlField.boxStrokeColor = ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
+        tlField.error = " "
+        tlField.getChildAt(1).visibility = View.GONE
+        tlField.errorIconDrawable = null
     }
 
     fun getEditText() = etField
