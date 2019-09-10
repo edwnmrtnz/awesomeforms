@@ -87,8 +87,9 @@
         android:id="@+id/tlField"
         style="@style/AwesomeForm.TextInputLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHeight_min="wrap"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +99,7 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/etField"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:inputType="textNoSuggestions"
             android:textColor="@color/AwesomeForm_textColor"
             android:textCursorDrawable="@drawable/color_cursor" />
