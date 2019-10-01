@@ -70,7 +70,6 @@
             android:inputType="none"
             android:maxLines="1"
             android:textColor="@color/AwesomeForm_textColor"
-            tools:hint="Please select something"
             tools:ignore="Deprecated" />
 
     </com.google.android.material.textfield.TextInputLayout>
