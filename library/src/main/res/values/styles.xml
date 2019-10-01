@@ -6,7 +6,7 @@
     </style>
 
     <style name="AwesomeForm.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-           parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+           parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
         <item name="hintTextColor">@color/AwesomeForm_hintColor</item>
         <item name="boxStrokeColor">@color/material_textinputlayout_box_color</item>
         <item name="android:paddingStart">2dp</item>

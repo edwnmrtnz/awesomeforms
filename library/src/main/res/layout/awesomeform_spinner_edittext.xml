@@ -63,14 +63,10 @@
             android:id="@+id/tvField"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:editable="true"
-            android:enabled="false"
-            android:imeOptions="flagNoExtractUi"
-            android:includeFontPadding="false"
-            android:inputType="none"
-            android:maxLines="1"
-            android:textColor="@color/AwesomeForm_textColor"
-            tools:ignore="Deprecated" />
+            android:editable="false"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textColor="@color/AwesomeForm_textColor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
