@@ -5,19 +5,18 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), FragmentOne.OnFragmentOneListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
-        val genderAdapter = ArrayAdapter(
-            this,
-            R.layout.awesomeform_dropdown_popup_item,
-            listOf("Male", "Female")
-        )
-        etGender.setAdapter(genderAdapter)
-
+        replace(R.id.flContainer, FragmentOne())
     }
+
+    override fun onSave() {
+        addToBackStack(R.id.flContainer, FragmentTwo())
+    }
+
 }

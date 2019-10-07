@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:isScrollContainer="false"
+        android:fillViewport="true"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llContainer"
+            android:clipToPadding="true"
+            android:paddingBottom="100dp"
+            android:orientation="vertical"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="?attr/textAppearanceHeadline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Address Details" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="Ilagay ang buong detalye ng address ng iyong tindahan." />
+
+
+            <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormSpinnerEditText
+                android:id="@+id/etStoreName"
+                app:fieldLabel="Store Name"
+                app:assistiveText=""
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormNormalEditText
+                android:id="@+id/etAddressLine"
+                app:fieldLabel="Address Line"
+                app:assistiveText=""
+                android:maxLines="3"
+                app:placeholderText="Unit No./Building Name/Street/\nAvenue/Subdivision"
+                android:inputType="textNoSuggestions"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormNormalEditText
+                android:id="@+id/etNearbyLandmark"
+                app:fieldLabel="Nearby Landmark"
+                app:assistiveText=""
+                android:maxLines="3"
+                android:inputType="textNoSuggestions"
+                app:placeholderText="Mag-type ng landmark o\ninstructions papunta sa iyong\ntindahan"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSave"
+        android:insetRight="0dp"
+        android:insetTop="0dp"
+        android:insetLeft="0dp"
+        android:insetBottom="0dp"
+        android:textAllCaps="false"
+        android:text="Save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

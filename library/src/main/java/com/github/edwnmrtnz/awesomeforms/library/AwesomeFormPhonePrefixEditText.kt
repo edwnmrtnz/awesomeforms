@@ -2,10 +2,13 @@ package com.github.edwnmrtnz.awesomeforms.library
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.os.Parcel
+import android.os.Parcelable
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.SparseArray
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import androidx.appcompat.widget.AppCompatEditText
@@ -197,4 +200,56 @@ class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : C
 
     fun getText() = etField.text.toString()
 
+
+    override fun onSaveInstanceState(): Parcelable? {
+        val superState = super.onSaveInstanceState()!!
+        return  SavedState(superState, getText())
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        val savedState = state as SavedState
+        super.onRestoreInstanceState(state)
+        etField.setText(savedState.text)
+    }
+
+    override fun dispatchSaveInstanceState(container: SparseArray<Parcelable>) {
+        super.dispatchFreezeSelfOnly(container)
+    }
+
+    override fun dispatchRestoreInstanceState(container: SparseArray<Parcelable>) {
+        super.dispatchThawSelfOnly(container)
+    }
+
+    internal class SavedState : BaseSavedState {
+
+        var text : String = ""
+
+        constructor(source : Parcel) : super(source) {
+            text = source.readByte().toString()
+        }
+
+        constructor(superState: Parcelable, text : String) : super(superState) {
+            this.text = text
+        }
+
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            super.writeToParcel(parcel, flags)
+            parcel.writeString(text)
+        }
+
+
+        companion object {
+            @JvmField
+            val CREATOR = object : Parcelable.Creator<SavedState> {
+                override fun createFromParcel(parcel: Parcel): SavedState {
+                    return SavedState(parcel)
+                }
+
+                override fun newArray(size: Int): Array<SavedState?> {
+                    return arrayOfNulls(size)
+                }
+            }
+        }
+
+    }
 }

@@ -2,7 +2,8 @@ package com.github.edwnmrtnz.awesomeforms.library
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.os.Build
+import android.os.Parcel
+import android.os.Parcelable
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
@@ -12,14 +13,12 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.widget.TextViewCompat
 import com.airbnb.paris.annotations.Attr
 import com.airbnb.paris.annotations.Styleable
 import com.airbnb.paris.annotations.StyleableChild
 import com.airbnb.paris.extensions.style
-import com.airbnb.paris.utils.getStyle
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import android.util.SparseArray
 
 /**
  * Created by edwinmartinez on July 31, 2019
@@ -27,6 +26,7 @@ import com.google.android.material.textfield.TextInputLayout
 
 @Styleable("AwesomeFormNormalEditText")
 class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
+
 
     private val tvFieldLabel by lazy { findViewById<AppCompatTextView>(R.id.tvFieldLabelTitle) }
     private val tlField by lazy { findViewById<TextInputLayout>(R.id.tlField) }
@@ -39,6 +39,7 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
     private var assistiveText : String? = null
 
     init {
+        isSaveEnabled = true
         View.inflate(context, R.layout.awesomeform_normal_edittext, this)
         style(attrs)
         textChangeListener()
@@ -178,4 +179,55 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
 
     fun getText() = etField.text.toString()
 
+    override fun onSaveInstanceState(): Parcelable? {
+        val superState = super.onSaveInstanceState()!!
+        return  SavedState(superState, getText())
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        val savedState = state as SavedState
+        super.onRestoreInstanceState(state)
+        etField.setText(savedState.text)
+    }
+
+    override fun dispatchSaveInstanceState(container: SparseArray<Parcelable>) {
+        super.dispatchFreezeSelfOnly(container)
+    }
+
+    override fun dispatchRestoreInstanceState(container: SparseArray<Parcelable>) {
+        super.dispatchThawSelfOnly(container)
+    }
+
+    internal class SavedState : BaseSavedState {
+
+        var text : String = ""
+
+        constructor(source : Parcel) : super(source) {
+            text = source.readByte().toString()
+        }
+
+        constructor(superState: Parcelable, text : String) : super(superState) {
+            this.text = text
+        }
+
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            super.writeToParcel(parcel, flags)
+            parcel.writeString(text)
+        }
+
+
+        companion object {
+            @JvmField
+            val CREATOR = object : Parcelable.Creator<SavedState> {
+                override fun createFromParcel(parcel: Parcel): SavedState {
+                    return SavedState(parcel)
+                }
+
+                override fun newArray(size: Int): Array<SavedState?> {
+                    return arrayOfNulls(size)
+                }
+            }
+        }
+
+    }
 }
