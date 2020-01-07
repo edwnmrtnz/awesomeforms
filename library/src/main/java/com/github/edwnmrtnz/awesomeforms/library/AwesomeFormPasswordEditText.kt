@@ -185,6 +185,8 @@ class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : Cons
         tlField.errorIconDrawable = null
     }
 
+    fun getTextInputLayout() = tlField
+
     fun getEditText() = etField
 
     fun setText(text : String) = etField.setText(text)
