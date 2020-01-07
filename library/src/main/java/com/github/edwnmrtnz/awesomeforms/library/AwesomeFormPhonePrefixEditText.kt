@@ -196,6 +196,8 @@ class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : C
 
     fun getEditText() = etField
 
+    fun getTextInputLayout() = tlField
+
     fun setText(text : String) = etField.setText(text)
 
     fun getText() = etField.text.toString()
