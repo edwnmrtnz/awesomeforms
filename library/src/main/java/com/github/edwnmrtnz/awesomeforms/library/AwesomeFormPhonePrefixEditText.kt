@@ -220,8 +220,9 @@ class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : C
 
     fun setText(text : String) = etField.setText(text)
 
-    fun getText() = etField.text.toString()
+    fun getPrefix() = tvPrefix
 
+    fun getText() = etField.text.toString()
 
     override fun onSaveInstanceState(): Parcelable? {
         val superState = super.onSaveInstanceState()!!
