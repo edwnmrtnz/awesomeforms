@@ -15,5 +15,13 @@
         <item name="android:inputType">number</item>
     </style>
 
+    <style name="IgniterAppThemeAwesomeFormEditTextPrefixStyle">
+        <item name="android:drawablePadding">10sp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="IgniterAppThemeAwesomeFormPrefixStyle">
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>
 

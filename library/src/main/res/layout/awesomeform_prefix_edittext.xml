@@ -81,8 +81,6 @@
         tools:text="First Name"
         tools:visibility="visible" />
 
-
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tlField"
         style="@style/AwesomeForm.TextInputLayout"

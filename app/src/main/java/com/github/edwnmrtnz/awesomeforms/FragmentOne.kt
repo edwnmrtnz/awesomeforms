@@ -32,23 +32,17 @@ class FragmentOne : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_fragment_one, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        view.btnSave.setOnClickListener {
-            onFragmentOneListener!!.onSave()
-        }
-
         val suffixAdapter = ArrayAdapter(
             context!!,
             R.layout.awesomeform_dropdown_popup_item,
             listOf("", "Jr", "III", "IV", "V")
         )
-        view.etStoreName.setAdapter(suffixAdapter)
+        view.etSuffix.setAdapter(suffixAdapter)
     }
     interface OnFragmentOneListener {
         fun onSave()

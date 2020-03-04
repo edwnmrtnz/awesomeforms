@@ -21,7 +21,6 @@
     <style name="AwesomeForm.AutoCompleteTextView" parent="Widget.AppCompat.AutoCompleteTextView">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/AwesomeForm_hintColor</item>
-
     </style>
 
     <style name="AwesomeForm.EditText.TextAppearance" parent="TextAppearance.AppCompat.Title">

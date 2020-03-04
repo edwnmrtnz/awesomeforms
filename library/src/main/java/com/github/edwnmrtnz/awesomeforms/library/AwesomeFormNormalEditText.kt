@@ -27,7 +27,6 @@ import android.util.SparseArray
 @Styleable("AwesomeFormNormalEditText")
 class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
 
-
     private val tvFieldLabel by lazy { findViewById<AppCompatTextView>(R.id.tvFieldLabelTitle) }
     private val tlField by lazy { findViewById<TextInputLayout>(R.id.tlField) }
     private val tvAssistiveText by lazy { findViewById<AppCompatTextView>(R.id.tvAssistiveText) }
@@ -216,7 +215,6 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
             super.writeToParcel(parcel, flags)
             parcel.writeString(text)
         }
-
 
         companion object {
             @JvmField

@@ -48,7 +48,6 @@ class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : C
         textChangeListener()
 
         etField.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
-
             if(!isErrorEnabled && hasFocus) {
                 prefixDivider.layoutParams.width = 6
                 prefixDivider.setBackgroundColor(ContextCompat.getColor(context, R.color.AwesomeForm_dividerColor))
@@ -78,6 +77,16 @@ class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : C
                 //Ignore
             }
         })
+    }
+
+    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_drawablePadding)
+    fun setDrawablePadding(padding : Int) {
+        this.tvPrefix.compoundDrawablePadding = padding
+    }
+
+    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_textSize)
+    fun setTextSize(textSize : Float) {
+        this.etField.textSize = textSize
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_prefixTextColor)
@@ -192,6 +201,7 @@ class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : C
         tlField.error = " "
         tlField.getChildAt(1).visibility = View.GONE
         tlField.errorIconDrawable = null
+        prefixDivider.setBackgroundColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
     }
 
     fun getEditText() = etField
