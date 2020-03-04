@@ -92,8 +92,9 @@
         <attr name="android:focusable"/>
         <attr name="android:clickable"/>
         <attr name="android:focusableInTouchMode"/>
-        <attr name="android:textSize"/>
-        <attr name="android:drawablePadding"/>
+        <attr name="android:drawablePadding" format="dimension"/>
+        <attr name="android:textAppearance" format="reference"/>
+
     </declare-styleable>
 
 </resources>

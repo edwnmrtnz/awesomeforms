@@ -7,19 +7,23 @@ import android.os.Parcelable
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
-import android.util.AttributeSet
-import android.util.SparseArray
+import android.util.*
 import android.view.View
 import android.view.View.OnFocusChangeListener
+import androidx.annotation.Px
+import androidx.annotation.StyleRes
+import androidx.annotation.StyleableRes
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.widget.TextViewCompat
 import com.airbnb.paris.annotations.Attr
 import com.airbnb.paris.annotations.Styleable
 import com.airbnb.paris.annotations.StyleableChild
 import com.airbnb.paris.extensions.style
 import com.google.android.material.textfield.TextInputLayout
+
 
 /**
  * Created by edwinmartinez on July 31, 2019
@@ -80,13 +84,20 @@ class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : C
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_drawablePadding)
-    fun setDrawablePadding(padding : Int) {
-        this.tvPrefix.compoundDrawablePadding = padding
+    fun setDrawablePadding(@Px padding : Float) {
+        val dp = convertPixelsToDp(
+            padding, context
+        ).toInt()
+        this.etField.compoundDrawablePadding = dp
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_textSize)
-    fun setTextSize(textSize : Float) {
-        this.etField.textSize = textSize
+    private fun convertPixelsToDp(px: Float, context: Context): Float {
+        return px / (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
+    }
+    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_textAppearance)
+    fun setTextAppearance(@StyleRes textAppearance : Int) {
+        TextViewCompat.setTextAppearance(etField, textAppearance)
+        TextViewCompat.setTextAppearance(tvPrefix, textAppearance)
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_prefixTextColor)

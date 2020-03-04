@@ -54,7 +54,6 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:text="+63"
-        android:textColor="@color/AwesomeForm_hintColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,6 +80,8 @@
         tools:text="First Name"
         tools:visibility="visible" />
 
+
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tlField"
         style="@style/AwesomeForm.TextInputLayout"
@@ -100,7 +101,8 @@
             android:layout_height="match_parent"
             android:inputType="textNoSuggestions"
             android:textColor="@color/AwesomeForm_textColor"
-            android:textCursorDrawable="@drawable/color_cursor" />
+            android:textCursorDrawable="@drawable/color_cursor"
+            tools:ignore="RtlSymmetry" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -75,13 +75,13 @@
                 android:layout_marginTop="24dp"
                 android:inputType="number"
                 android:maxLength="10"
+                android:drawablePadding="12dp"
                 app:assistiveText=""
+                android:textAppearance="@style/IgniterAppThemeAwesomeFormPrefixStyle"
                 app:fieldLabel="Mobile Number"
-                app:fieldStyle="@style/IgniterAppThemeAwesomeFormEditTextPrefixStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/etLastName"
-                app:layout_constraintTop_toBottomOf="@+id/etLastName"
-                app:prefixStyle="@style/IgniterAppThemeAwesomeFormPrefixStyle"/>
+                app:layout_constraintTop_toBottomOf="@+id/etLastName" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
