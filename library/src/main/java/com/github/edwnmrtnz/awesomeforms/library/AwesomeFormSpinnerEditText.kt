@@ -6,7 +6,6 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -22,9 +21,9 @@ import com.google.android.material.textfield.TextInputLayout
 /**
  * Created by edwinmartinez on July 31, 2019
  */
-
 @Styleable("AwesomeFormSpinnerEditText")
-class AwesomeFormSpinnerEditText (context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
+class AwesomeFormSpinnerEditText(context: Context, attrs: AttributeSet) :
+    ConstraintLayout(context, attrs) {
 
     private val tvFieldLabel by lazy { findViewById<AppCompatTextView>(R.id.tvFieldLabelTitle) }
     private val tlField by lazy { findViewById<TextInputLayout>(R.id.tlField) }
@@ -34,7 +33,7 @@ class AwesomeFormSpinnerEditText (context: Context, attrs: AttributeSet) : Const
     internal val tvField by lazy { findViewById<AutoCompleteTextView>(R.id.tvField) }
 
     private var isErrorEnabled = false
-    private var assistiveText : String? = null
+    private var assistiveText: String? = null
 
     init {
         View.inflate(context, R.layout.awesomeform_spinner_edittext, this)
@@ -45,13 +44,15 @@ class AwesomeFormSpinnerEditText (context: Context, attrs: AttributeSet) : Const
     private fun textChangeListener() {
         tvField.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                if(isErrorEnabled) {
+                if (isErrorEnabled) {
                     removeError()
                 }
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 //Ignore
             }
+
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 //Ignore
             }
@@ -64,18 +65,18 @@ class AwesomeFormSpinnerEditText (context: Context, attrs: AttributeSet) : Const
     }
 
     @Attr(R2.styleable.AwesomeFormSpinnerEditText_fieldLabel)
-    fun setFieldLabel(fieldLabel : String) {
+    fun setFieldLabel(fieldLabel: String) {
         this.tvFieldLabel.text = fieldLabel
         this.tvFieldLabel.visibility = View.VISIBLE
     }
 
     @Attr(R2.styleable.AwesomeFormSpinnerEditText_fieldLabelTextColor)
-    fun setFieldLabelTextColor(fieldLabelTextColor : Int) {
+    fun setFieldLabelTextColor(fieldLabelTextColor: Int) {
         this.tvFieldLabel.setTextColor(fieldLabelTextColor)
     }
 
     @Attr(R2.styleable.AwesomeFormSpinnerEditText_assistiveText)
-    fun setAssistiveText(assistiveText : String) {
+    fun setAssistiveText(assistiveText: String) {
         this.assistiveText = assistiveText
         this.tvAssistiveText.text = assistiveText
         this.tvAssistiveText.visibility = View.VISIBLE
@@ -87,48 +88,50 @@ class AwesomeFormSpinnerEditText (context: Context, attrs: AttributeSet) : Const
     }
 
     @Attr(R2.styleable.AwesomeFormSpinnerEditText_placeholderText)
-    fun setPlaceHolderText(placeHolderText : String) {
+    fun setPlaceHolderText(placeHolderText: String) {
         this.tvField.hint = placeHolderText
     }
 
     @Attr(R2.styleable.AwesomeFormSpinnerEditText_placeholderTextColor)
-    fun setPlaceHolderTextColor(placeHolderTextColor : Int) {
+    fun setPlaceHolderTextColor(placeHolderTextColor: Int) {
         this.tvField.setHintTextColor(placeHolderTextColor)
     }
 
     @Attr(R2.styleable.AwesomeFormSpinnerEditText_android_maxLines)
-    fun setMaxLines(maxLine : Int) {
+    fun setMaxLines(maxLine: Int) {
         this.tvField.maxLines = maxLine
     }
 
     @Attr(R2.styleable.AwesomeFormSpinnerEditText_android_maxLength)
-    fun setMaxLength(maxLength : Int) {
+    fun setMaxLength(maxLength: Int) {
         this.tvField.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLength))
     }
 
     @Attr(R2.styleable.AwesomeFormSpinnerEditText_android_focusable)
-    fun setIsFocusable(isFocusable : Boolean) {
+    fun setIsFocusable(isFocusable: Boolean) {
         this.tvField.isFocusable = isFocusable
     }
 
     @Attr(R2.styleable.AwesomeFormSpinnerEditText_android_focusableInTouchMode)
-    fun setIsFocusableInTouchMode(isFocusableInTouchMode : Boolean) {
+    fun setIsFocusableInTouchMode(isFocusableInTouchMode: Boolean) {
         this.tvField.isFocusableInTouchMode = isFocusableInTouchMode
     }
 
     @Attr(R2.styleable.AwesomeFormSpinnerEditText_android_clickable)
-    fun setIsClickable(isClickable : Boolean) {
+    fun setIsClickable(isClickable: Boolean) {
         this.tvField.isClickable = isClickable
     }
 
     fun removeError() {
         isErrorEnabled = false
-        tlField.boxStrokeColor = ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
+        tlField.boxStrokeColor =
+            ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
         tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
         tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
-        tlField.boxStrokeColor = ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
+        tlField.boxStrokeColor =
+            ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
 
-        if(assistiveText != null) {
+        if (assistiveText != null) {
             tvAssistiveText.visibility = View.VISIBLE
             tvAssistiveText.text = assistiveText
         } else {
@@ -137,11 +140,16 @@ class AwesomeFormSpinnerEditText (context: Context, attrs: AttributeSet) : Const
         tlField.error = null
     }
 
-    fun setError(errorMessage : String) {
+    fun setError(errorMessage: String) {
         isErrorEnabled = true
         tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
         tvAssistiveText.visibility = View.VISIBLE
-        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+        tvAssistiveText.setTextColor(
+            ContextCompat.getColor(
+                context,
+                R.color.AwesomeForm_color_error
+            )
+        )
         tvAssistiveText.text = errorMessage
         tlField.boxStrokeColor = ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
         tlField.error = " "
@@ -155,10 +163,9 @@ class AwesomeFormSpinnerEditText (context: Context, attrs: AttributeSet) : Const
         tvField.setAdapter(adapter)
     }
 
-    fun setText(text : String) = tvField.setText(text)
+    fun setText(text: String) = tvField.setText(text)
 
     fun getText() = tvField.text.toString()
-
 
 
 }

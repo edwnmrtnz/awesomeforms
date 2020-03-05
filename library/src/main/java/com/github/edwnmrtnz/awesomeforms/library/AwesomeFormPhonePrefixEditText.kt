@@ -7,12 +7,13 @@ import android.os.Parcelable
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
-import android.util.*
+import android.util.AttributeSet
+import android.util.DisplayMetrics
+import android.util.SparseArray
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import androidx.annotation.Px
 import androidx.annotation.StyleRes
-import androidx.annotation.StyleableRes
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +31,8 @@ import com.google.android.material.textfield.TextInputLayout
  */
 
 @Styleable("AwesomeFormPhonePrefixEditText")
-class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
+class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
+    ConstraintLayout(context, attrs) {
 
     private val tvFieldLabel by lazy { findViewById<AppCompatTextView>(R.id.tvFieldLabelTitle) }
     private val tlField by lazy { findViewById<TextInputLayout>(R.id.tlField) }
@@ -43,7 +45,7 @@ class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : C
     internal val etField by lazy { findViewById<AppCompatEditText>(R.id.etField) }
 
     private var isErrorEnabled = false
-    private var assistiveText : String? = null
+    private var assistiveText: String? = null
 
     init {
         View.inflate(context, R.layout.awesomeform_prefix_edittext, this)
@@ -51,15 +53,30 @@ class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : C
         textChangeListener()
 
         etField.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
-            if(!isErrorEnabled && hasFocus) {
+            if (!isErrorEnabled && hasFocus) {
                 prefixDivider.layoutParams.width = 6
-                prefixDivider.setBackgroundColor(ContextCompat.getColor(context, R.color.AwesomeForm_dividerColor))
-            } else if(isErrorEnabled && hasFocus) {
+                prefixDivider.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.AwesomeForm_dividerColor
+                    )
+                )
+            } else if (isErrorEnabled && hasFocus) {
                 prefixDivider.layoutParams.width = 6
-                prefixDivider.setBackgroundColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+                prefixDivider.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.AwesomeForm_color_error
+                    )
+                )
             } else {
                 prefixDivider.layoutParams.width = 2
-                prefixDivider.setBackgroundColor(ContextCompat.getColor(context, R.color.AwesomeForm_dividerColor))
+                prefixDivider.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.AwesomeForm_dividerColor
+                    )
+                )
             }
 
             prefixDivider.requestLayout()
@@ -69,13 +86,15 @@ class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : C
     private fun textChangeListener() {
         etField.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                if(isErrorEnabled) {
+                if (isErrorEnabled) {
                     removeError()
                 }
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 //Ignore
             }
+
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 //Ignore
             }
@@ -83,7 +102,7 @@ class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : C
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_drawablePadding)
-    fun setDrawablePadding(@Px padding : Float) {
+    fun setDrawablePadding(@Px padding: Float) {
         val dp = convertPixelsToDp(
             padding, context
         ).toInt()
@@ -93,8 +112,9 @@ class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : C
     private fun convertPixelsToDp(px: Float, context: Context): Float {
         return px / (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
     }
+
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_textAppearance)
-    fun setTextAppearance(@StyleRes textAppearance : Int) {
+    fun setTextAppearance(@StyleRes textAppearance: Int) {
         TextViewCompat.setTextAppearance(etField, textAppearance)
         TextViewCompat.setTextAppearance(tvPrefix, textAppearance)
     }
@@ -116,18 +136,18 @@ class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : C
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_fieldLabel)
-    fun setFieldLabel(fieldLabel : String) {
+    fun setFieldLabel(fieldLabel: String) {
         this.tvFieldLabel.text = fieldLabel
         this.tvFieldLabel.visibility = View.VISIBLE
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_fieldLabelTextColor)
-    fun setFieldLabelTextColor(fieldLabelTextColor : Int) {
+    fun setFieldLabelTextColor(fieldLabelTextColor: Int) {
         this.tvFieldLabel.setTextColor(fieldLabelTextColor)
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_assistiveText)
-    fun setAssistiveText(assistiveText : String) {
+    fun setAssistiveText(assistiveText: String) {
         this.assistiveText = assistiveText
         this.tvAssistiveText.text = assistiveText
         this.tvAssistiveText.visibility = View.VISIBLE
@@ -139,59 +159,66 @@ class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : C
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_placeholderText)
-    fun setPlaceHolderText(placeHolderText : String) {
+    fun setPlaceHolderText(placeHolderText: String) {
         this.etField.hint = placeHolderText
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_placeholderTextColor)
-    fun setPlaceHolderTextColor(placeHolderTextColor : Int) {
+    fun setPlaceHolderTextColor(placeHolderTextColor: Int) {
         this.etField.setHintTextColor(placeHolderTextColor)
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_imeOptions)
-    fun setImeOptions(imeOptions : Int) {
+    fun setImeOptions(imeOptions: Int) {
         this.etField.imeOptions = imeOptions
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_inputType)
-    fun setInputType(inputType : Int) {
+    fun setInputType(inputType: Int) {
         this.etField.inputType = inputType
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_maxLines)
-    fun setMaxLines(maxLine : Int) {
+    fun setMaxLines(maxLine: Int) {
         this.etField.maxLines = maxLine
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_maxLength)
-    fun setMaxLength(maxLength : Int) {
+    fun setMaxLength(maxLength: Int) {
         this.etField.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLength))
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_focusable)
-    fun setIsFocusable(isFocusable : Boolean) {
+    fun setIsFocusable(isFocusable: Boolean) {
         this.etField.isFocusable = isFocusable
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_focusableInTouchMode)
-    fun setIsFocusableInTouchMode(isFocusableInTouchMode : Boolean) {
+    fun setIsFocusableInTouchMode(isFocusableInTouchMode: Boolean) {
         this.etField.isFocusableInTouchMode = isFocusableInTouchMode
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_clickable)
-    fun setIsClickable(isClickable : Boolean) {
+    fun setIsClickable(isClickable: Boolean) {
         this.etField.isClickable = isClickable
     }
 
     fun removeError() {
         isErrorEnabled = false
-        tlField.boxStrokeColor = ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
+        tlField.boxStrokeColor =
+            ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
         tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
         tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
-        tlField.boxStrokeColor = ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
-        prefixDivider.setBackgroundColor(ContextCompat.getColor(context, R.color.AwesomeForm_dividerColor))
+        tlField.boxStrokeColor =
+            ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
+        prefixDivider.setBackgroundColor(
+            ContextCompat.getColor(
+                context,
+                R.color.AwesomeForm_dividerColor
+            )
+        )
 
-        if(assistiveText != null) {
+        if (assistiveText != null) {
             tvAssistiveText.visibility = View.VISIBLE
             tvAssistiveText.text = assistiveText
         } else {
@@ -201,24 +228,34 @@ class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : C
 
     }
 
-    fun setError(errorMessage : String) {
+    fun setError(errorMessage: String) {
         isErrorEnabled = true
         tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
         tvAssistiveText.visibility = View.VISIBLE
-        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+        tvAssistiveText.setTextColor(
+            ContextCompat.getColor(
+                context,
+                R.color.AwesomeForm_color_error
+            )
+        )
         tvAssistiveText.text = errorMessage
         tlField.boxStrokeColor = ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
         tlField.error = " "
         tlField.getChildAt(1).visibility = View.GONE
         tlField.errorIconDrawable = null
-        prefixDivider.setBackgroundColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+        prefixDivider.setBackgroundColor(
+            ContextCompat.getColor(
+                context,
+                R.color.AwesomeForm_color_error
+            )
+        )
     }
 
     fun getEditText() = etField
 
     fun getTextInputLayout() = tlField
 
-    fun setText(text : String) = etField.setText(text)
+    fun setText(text: String) = etField.setText(text)
 
     fun getPrefix() = tvPrefix
 
@@ -226,7 +263,7 @@ class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : C
 
     override fun onSaveInstanceState(): Parcelable? {
         val superState = super.onSaveInstanceState()!!
-        return  SavedState(superState, getText())
+        return SavedState(superState, getText())
     }
 
     override fun onRestoreInstanceState(state: Parcelable?) {
@@ -245,13 +282,13 @@ class AwesomeFormPhonePrefixEditText (context: Context, attrs: AttributeSet) : C
 
     internal class SavedState : BaseSavedState {
 
-        var text : String = ""
+        var text: String = ""
 
-        constructor(source : Parcel) : super(source) {
+        constructor(source: Parcel) : super(source) {
             text = source.readByte().toString()
         }
 
-        constructor(superState: Parcelable, text : String) : super(superState) {
+        constructor(superState: Parcelable, text: String) : super(superState) {
             this.text = text
         }
 
