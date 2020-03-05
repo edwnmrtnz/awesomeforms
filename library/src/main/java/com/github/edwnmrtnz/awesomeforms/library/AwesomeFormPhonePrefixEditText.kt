@@ -119,11 +119,6 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
         TextViewCompat.setTextAppearance(tvPrefix, textAppearance)
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_prefixTextColor)
-    fun setPrefixTextColor(color: Int) {
-        this.tvPrefix.setTextColor(color)
-    }
-
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_endIconDrawable)
     fun setEndIconDrawable(drawable: Drawable) {
         this.tlField.endIconDrawable = drawable

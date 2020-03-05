@@ -83,7 +83,6 @@
         <attr name="fieldStyle"/>
         <attr name="endIconDrawable"/>
         <attr name="endIconMode"/>
-        <attr name="prefixTextColor"/>
         <attr name="android:imeOptions"/>
         <attr name="android:inputType"/>
         <attr name="android:maxLines"/>
