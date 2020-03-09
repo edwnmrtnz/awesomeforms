@@ -10,10 +10,12 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.SparseArray
 import android.view.View
+import androidx.annotation.StyleRes
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.widget.TextViewCompat
 import com.airbnb.paris.annotations.Attr
 import com.airbnb.paris.annotations.Styleable
 import com.airbnb.paris.annotations.StyleableChild
@@ -62,6 +64,11 @@ class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : Cons
         })
     }
 
+    @Attr(R2.styleable.AwesomeFormPasswordEditText_android_textAppearance)
+    fun setTextAppearance(@StyleRes textAppearance: Int) {
+        TextViewCompat.setTextAppearance(etField, textAppearance)
+    }
+
     @Attr(R2.styleable.AwesomeFormPasswordEditText_startIconDrawable)
     fun setStartIconDrawable(drawable: Drawable) {
         this.tlField.startIconDrawable = drawable
@@ -80,7 +87,7 @@ class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : Cons
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_passwordToggleDrawable)
     fun setPasswordDrawableToggle(drawable: Drawable) {
-        this.tlField.passwordVisibilityToggleDrawable = drawable
+        this.tlField.endIconDrawable = drawable
     }
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_passwordToggleEnabled)

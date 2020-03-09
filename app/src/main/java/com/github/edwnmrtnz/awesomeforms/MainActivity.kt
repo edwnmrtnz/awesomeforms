@@ -11,8 +11,7 @@ class MainActivity : AppCompatActivity(), FragmentOne.OnFragmentOneListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        replace(R.id.flContainer, FragmentOne())
+        replace(R.id.flContainer, FragmentTwo())
     }
 
     override fun onSave() {

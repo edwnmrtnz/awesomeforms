@@ -53,6 +53,7 @@
         <attr name="android:focusable"/>
         <attr name="android:clickable"/>
         <attr name="android:focusableInTouchMode"/>
+        <attr name="android:textAppearance" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="AwesomeFormSpinnerEditText">
