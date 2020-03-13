@@ -1,9 +1,7 @@
 package com.github.edwnmrtnz.awesomeforms
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity(), FragmentOne.OnFragmentOneListener {
 
@@ -11,7 +9,8 @@ class MainActivity : AppCompatActivity(), FragmentOne.OnFragmentOneListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        replace(R.id.flContainer, FragmentTwo())
+        if (savedInstanceState == null)
+            replace(R.id.flContainer, FragmentOne())
     }
 
     override fun onSave() {

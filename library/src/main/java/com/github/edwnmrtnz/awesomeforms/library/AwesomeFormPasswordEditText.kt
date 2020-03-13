@@ -208,7 +208,7 @@ class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : Cons
 
     override fun onRestoreInstanceState(state: Parcelable?) {
         val savedState = state as SavedState
-        super.onRestoreInstanceState(state)
+        super.onRestoreInstanceState(state.superState)
         etField.setText(savedState.text)
     }
 

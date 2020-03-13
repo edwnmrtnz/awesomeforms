@@ -187,7 +187,7 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
 
     override fun onRestoreInstanceState(state: Parcelable?) {
         val savedState = state as SavedState
-        super.onRestoreInstanceState(state)
+        super.onRestoreInstanceState(state.superState)
         etField.setText(savedState.text)
     }
 
