@@ -62,7 +62,7 @@
         <androidx.appcompat.widget.AppCompatAutoCompleteTextView
             android:id="@+id/tvField"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:editable="false"
             android:singleLine="true"
             android:ellipsize="end"

@@ -19,7 +19,6 @@ import com.airbnb.paris.annotations.Styleable
 import com.airbnb.paris.annotations.StyleableChild
 import com.airbnb.paris.extensions.style
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.android.synthetic.main.awesomeform_normal_edittext.view.*
 
 /**
  * Created by edwinmartinez on July 31, 2019
@@ -64,7 +63,7 @@ class AwesomeFormSpinnerEditText(context: Context, attrs: AttributeSet) :
 
     @Attr(R2.styleable.AwesomeFormSpinnerEditText_android_textAppearance)
     fun setTextAppearance(@StyleRes textAppearance : Int) {
-        TextViewCompat.setTextAppearance(this.etField, textAppearance)
+        TextViewCompat.setTextAppearance(this.tvField, textAppearance)
     }
 
     @Attr(R2.styleable.AwesomeFormSpinnerEditText_startIconDrawable)
