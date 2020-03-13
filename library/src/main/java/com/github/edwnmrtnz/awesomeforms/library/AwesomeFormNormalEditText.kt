@@ -19,6 +19,8 @@ import com.airbnb.paris.annotations.StyleableChild
 import com.airbnb.paris.extensions.style
 import com.google.android.material.textfield.TextInputLayout
 import android.util.SparseArray
+import androidx.annotation.StyleRes
+import androidx.core.widget.TextViewCompat
 
 /**
  * Created by edwinmartinez on July 31, 2019
@@ -58,6 +60,11 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
                 //Ignore
             }
         })
+    }
+
+    @Attr(R2.styleable.AwesomeFormNormalEditText_android_textAppearance)
+    fun setTextAppearance(@StyleRes textAppearance : Int) {
+        TextViewCompat.setTextAppearance(etField, textAppearance)
     }
 
     @Attr(R2.styleable.AwesomeFormNormalEditText_startIconDrawable)

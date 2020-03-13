@@ -66,7 +66,7 @@ class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : Cons
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_android_textAppearance)
     fun setTextAppearance(@StyleRes textAppearance: Int) {
-        TextViewCompat.setTextAppearance(etField, textAppearance)
+        TextViewCompat.setTextAppearance(this.etField, textAppearance)
     }
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_startIconDrawable)

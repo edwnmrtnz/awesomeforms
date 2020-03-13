@@ -101,6 +101,12 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
         })
     }
 
+    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_textAppearance)
+    fun setTextAppearance(@StyleRes textAppearance: Int) {
+        TextViewCompat.setTextAppearance(this.etField, textAppearance)
+        TextViewCompat.setTextAppearance(this.tvPrefix, textAppearance)
+    }
+
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_drawablePadding)
     fun setDrawablePadding(@Px padding: Float) {
         val dp = convertPixelsToDp(
@@ -111,12 +117,6 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
 
     private fun convertPixelsToDp(px: Float, context: Context): Float {
         return px / (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
-    }
-
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_textAppearance)
-    fun setTextAppearance(@StyleRes textAppearance: Int) {
-        TextViewCompat.setTextAppearance(etField, textAppearance)
-        TextViewCompat.setTextAppearance(tvPrefix, textAppearance)
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_endIconDrawable)

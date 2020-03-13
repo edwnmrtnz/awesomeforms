@@ -9,14 +9,17 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import androidx.annotation.StyleRes
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.widget.TextViewCompat
 import com.airbnb.paris.annotations.Attr
 import com.airbnb.paris.annotations.Styleable
 import com.airbnb.paris.annotations.StyleableChild
 import com.airbnb.paris.extensions.style
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.awesomeform_normal_edittext.view.*
 
 /**
  * Created by edwinmartinez on July 31, 2019
@@ -57,6 +60,11 @@ class AwesomeFormSpinnerEditText(context: Context, attrs: AttributeSet) :
                 //Ignore
             }
         })
+    }
+
+    @Attr(R2.styleable.AwesomeFormSpinnerEditText_android_textAppearance)
+    fun setTextAppearance(@StyleRes textAppearance : Int) {
+        TextViewCompat.setTextAppearance(this.etField, textAppearance)
     }
 
     @Attr(R2.styleable.AwesomeFormSpinnerEditText_startIconDrawable)
