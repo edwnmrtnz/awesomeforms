@@ -17,7 +17,9 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:padding="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp"
             android:id="@+id/llContainer"
             android:clipToPadding="true"
             android:orientation="vertical"
