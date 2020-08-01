@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#ebebeb</color>
     <color name="AwesomeForm_hintColor">#adadad</color>
     <color name="AwesomeForm_dividerColor">#ebebeb</color>
     <color name="AwesomeForm_textColor">#333333</color>
     <color name="AwesomeForm_color_cursor">#333333</color>
     <color name="AwesomeForm_color_error">#ff2a4e</color>
+    <color name="AwesomeForm_focus_color">@color/colorPrimary</color>
 </resources>

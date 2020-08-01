@@ -10,8 +10,11 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.util.SparseArray
+import android.util.TypedValue
 import android.view.View
 import android.view.View.OnFocusChangeListener
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
 import androidx.annotation.Px
 import androidx.annotation.StyleRes
 import androidx.appcompat.widget.AppCompatEditText
@@ -58,7 +61,7 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
                 prefixDivider.setBackgroundColor(
                     ContextCompat.getColor(
                         context,
-                        R.color.AwesomeForm_dividerColor
+                        R.color.AwesomeForm_focus_color
                     )
                 )
             } else if (isErrorEnabled && hasFocus) {
@@ -306,5 +309,15 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
             }
         }
 
+    }
+
+    @ColorInt
+    fun getThemeColor(
+        context: Context,
+        @AttrRes attributeColor: Int
+    ): Int {
+        val value = TypedValue()
+        context.theme.resolveAttribute(attributeColor, value, true)
+        return value.data
     }
 }
