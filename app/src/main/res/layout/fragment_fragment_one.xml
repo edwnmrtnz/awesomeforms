@@ -75,8 +75,6 @@
                 android:layout_marginTop="24dp"
                 android:inputType="number"
                 android:maxLength="10"
-                android:drawablePadding="50dp"
-                android:textAppearance="@style/IgniterAppThemeAwesomeFormPrefixStyle"
                 app:assistiveText=""
                 app:fieldLabel="Mobile Number"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -45,6 +45,7 @@ class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : Cons
     init {
         View.inflate(context, R.layout.awesomeform_password_edittext, this)
         style(attrs)
+        setTextAppearance(R.style.AwesomeForm_EditText)
         textChangeListener()
     }
 

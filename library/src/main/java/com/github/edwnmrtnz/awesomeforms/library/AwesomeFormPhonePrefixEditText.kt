@@ -53,6 +53,7 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
     init {
         View.inflate(context, R.layout.awesomeform_prefix_edittext, this)
         style(attrs)
+        setTextAppearance(R.style.AwesomeForm_EditText)
         textChangeListener()
 
         etField.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->

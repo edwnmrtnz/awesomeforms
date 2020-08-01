@@ -43,6 +43,7 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
         isSaveEnabled = true
         View.inflate(context, R.layout.awesomeform_normal_edittext, this)
         style(attrs)
+        setTextAppearance(R.style.AwesomeForm_EditText)
         textChangeListener()
     }
 
