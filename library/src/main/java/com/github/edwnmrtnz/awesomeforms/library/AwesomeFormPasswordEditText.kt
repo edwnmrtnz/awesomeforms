@@ -47,6 +47,25 @@ class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : Cons
         style(attrs)
         setTextAppearance(R.style.AwesomeForm_EditText)
         textChangeListener()
+        etField.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+            if(hasFocus) {
+                if(isErrorEnabled) {
+                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+                } else {
+                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
+                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
+                }
+            } else {
+                if(isErrorEnabled) {
+                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+                } else {
+                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
+                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
+                }
+            }
+        }
     }
 
     private fun textChangeListener() {
@@ -166,8 +185,8 @@ class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : Cons
 
     fun removeError() {
         isErrorEnabled = false
-        tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
-        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
+        tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
+        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
 
         if(assistiveText != null) {
             tvAssistiveText.visibility = View.VISIBLE

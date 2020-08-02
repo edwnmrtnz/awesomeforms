@@ -45,6 +45,25 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
         style(attrs)
         setTextAppearance(R.style.AwesomeForm_EditText)
         textChangeListener()
+        etField.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+            if(hasFocus) {
+                if(isErrorEnabled) {
+                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+                } else {
+                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
+                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
+                }
+            } else {
+                if(isErrorEnabled) {
+                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+                } else {
+                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
+                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
+                }
+            }
+        }
     }
 
     private fun textChangeListener() {
@@ -154,8 +173,8 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
 
     fun removeError() {
         isErrorEnabled = false
-        tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
-        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
+        tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
+        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
 
         if(assistiveText != null) {
             tvAssistiveText.visibility = View.VISIBLE
@@ -169,8 +188,9 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
     fun setError(errorMessage : String) {
         isErrorEnabled = true
         tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
-        tvAssistiveText.visibility = View.VISIBLE
         tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+
+        tvAssistiveText.visibility = View.VISIBLE
         tvAssistiveText.text = errorMessage
 
         tlField.error = " "

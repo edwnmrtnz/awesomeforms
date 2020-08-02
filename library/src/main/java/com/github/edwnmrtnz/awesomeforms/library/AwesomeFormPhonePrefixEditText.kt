@@ -63,16 +63,27 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
         etField.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
             if(hasFocus) {
                 prefixDivider.layoutParams.width = 6
-                if(isErrorEnabled)
+                if(isErrorEnabled) {
+                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
                     prefixDivider.setBackgroundColor(errorColor)
-                else
+                } else {
                     prefixDivider.setBackgroundColor(focusedColor)
+                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
+                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
+                }
+
             } else {
                 prefixDivider.layoutParams.width = 2
-                if(isErrorEnabled)
+                if(isErrorEnabled) {
                     prefixDivider.setBackgroundColor(errorColor)
-                else
+                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+                } else {
                     prefixDivider.setBackgroundColor(strokeColor)
+                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
+                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
+                }
             }
             prefixDivider.requestLayout()
         }
@@ -196,8 +207,8 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
     fun removeError() {
         isErrorEnabled = false
 
-        tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
-        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
+        tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
+        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
         prefixDivider.setBackgroundColor(focusedColor)
 
         if (assistiveText != null) {
