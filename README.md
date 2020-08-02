@@ -51,10 +51,13 @@ Using theme is pretty simple. You can see the sample inside app module.
 You may override the following colors
 
 ```xml
-<color name="AwesomeForm_textColor">#333333</color>
-<color name="AwesomeForm_color_cursor">#333333</color>
-<color name="AwesomeForm_color_error">#ff2a4e</color>
-<color name="AwesomeForm_focus_color">@color/colorPrimary</color>
+    <color name="AwesomeForm_hintColor">#adadad</color>
+    <color name="AwesomeForm_textColor">#333333</color>
+    <color name="AwesomeForm_color_cursor">#333333</color>
+
+    <color name="AwesomeForm_strokeColor">#ebebeb</color>
+    <color name="AwesomeForm_color_error">#ff2a4e</color>
+    <color name="AwesomeForm_focused_color">@color/colorPrimary</color>
 ```
 
 
