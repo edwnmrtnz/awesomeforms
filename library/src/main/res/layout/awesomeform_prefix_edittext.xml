@@ -15,7 +15,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="0dp"
-        android:background="@color/AwesomeForm_dividerColor"
+        android:background="@color/AwesomeForm_strokeColor"
         android:focusable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/tvPrefix"
@@ -93,7 +93,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvFieldLabelTitle"
-        app:startIconDrawable="@drawable/transparent">
+        app:startIconDrawable="@drawable/awesomeform_transparent">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/etField"
@@ -103,7 +103,7 @@
             android:layout_height="match_parent"
             android:inputType="textNoSuggestions"
             android:textColor="@color/AwesomeForm_textColor"
-            android:textCursorDrawable="@drawable/color_cursor"
+            android:textCursorDrawable="@drawable/awesomeform_color_cursor"
             tools:ignore="RtlSymmetry" />
 
     </com.google.android.material.textfield.TextInputLayout>

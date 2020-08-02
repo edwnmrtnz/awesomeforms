@@ -154,10 +154,8 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
 
     fun removeError() {
         isErrorEnabled = false
-        tlField.boxStrokeColor = ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
         tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
         tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
-        tlField.boxStrokeColor = ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
 
         if(assistiveText != null) {
             tvAssistiveText.visibility = View.VISIBLE
@@ -174,7 +172,7 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
         tvAssistiveText.visibility = View.VISIBLE
         tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
         tvAssistiveText.text = errorMessage
-        tlField.boxStrokeColor = ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
+
         tlField.error = " "
         tlField.getChildAt(1).visibility = View.GONE
         tlField.errorIconDrawable = null

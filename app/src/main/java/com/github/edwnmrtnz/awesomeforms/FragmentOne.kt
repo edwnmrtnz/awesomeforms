@@ -43,6 +43,8 @@ class FragmentOne : Fragment() {
             listOf("", "Jr", "III", "IV", "V")
         )
         view.etSuffix.setAdapter(suffixAdapter)
+        view.etMobileNumber.setError("fdaf")
+        view.etFirstName.setError("afdsf")
     }
     interface OnFragmentOneListener {
         fun onSave()

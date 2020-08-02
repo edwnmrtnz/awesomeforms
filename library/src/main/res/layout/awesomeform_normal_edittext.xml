@@ -69,7 +69,7 @@
             android:gravity="top"
             android:inputType="textNoSuggestions"
             android:textColor="@color/AwesomeForm_textColor"
-            android:textCursorDrawable="@drawable/color_cursor"
+            android:textCursorDrawable="@drawable/awesomeform_color_cursor"
             android:textStyle="normal" />
 
     </com.google.android.material.textfield.TextInputLayout>

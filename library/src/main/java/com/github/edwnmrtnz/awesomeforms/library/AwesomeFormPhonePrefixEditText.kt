@@ -50,6 +50,10 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
     private var isErrorEnabled = false
     private var assistiveText: String? = null
 
+    private val errorColor = ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
+    private val focusedColor = ContextCompat.getColor(context, R.color.AwesomeForm_focused_color)
+    private val strokeColor = ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
+
     init {
         View.inflate(context, R.layout.awesomeform_prefix_edittext, this)
         style(attrs)
@@ -57,32 +61,19 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
         textChangeListener()
 
         etField.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
-            if (!isErrorEnabled && hasFocus) {
+            if(hasFocus) {
                 prefixDivider.layoutParams.width = 6
-                prefixDivider.setBackgroundColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.AwesomeForm_focus_color
-                    )
-                )
-            } else if (isErrorEnabled && hasFocus) {
-                prefixDivider.layoutParams.width = 6
-                prefixDivider.setBackgroundColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.AwesomeForm_color_error
-                    )
-                )
+                if(isErrorEnabled)
+                    prefixDivider.setBackgroundColor(errorColor)
+                else
+                    prefixDivider.setBackgroundColor(focusedColor)
             } else {
                 prefixDivider.layoutParams.width = 2
-                prefixDivider.setBackgroundColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.AwesomeForm_dividerColor
-                    )
-                )
+                if(isErrorEnabled)
+                    prefixDivider.setBackgroundColor(errorColor)
+                else
+                    prefixDivider.setBackgroundColor(strokeColor)
             }
-
             prefixDivider.requestLayout()
         }
     }
@@ -204,18 +195,10 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
 
     fun removeError() {
         isErrorEnabled = false
-        tlField.boxStrokeColor =
-            ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
+
         tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
         tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
-        tlField.boxStrokeColor =
-            ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
-        prefixDivider.setBackgroundColor(
-            ContextCompat.getColor(
-                context,
-                R.color.AwesomeForm_dividerColor
-            )
-        )
+        prefixDivider.setBackgroundColor(focusedColor)
 
         if (assistiveText != null) {
             tvAssistiveText.visibility = View.VISIBLE
@@ -224,30 +207,20 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
             tvAssistiveText.visibility = View.GONE
         }
         tlField.error = null
-
     }
 
     fun setError(errorMessage: String) {
         isErrorEnabled = true
-        tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
         tvAssistiveText.visibility = View.VISIBLE
-        tvAssistiveText.setTextColor(
-            ContextCompat.getColor(
-                context,
-                R.color.AwesomeForm_color_error
-            )
-        )
+
         tvAssistiveText.text = errorMessage
-        tlField.boxStrokeColor = ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
         tlField.error = " "
         tlField.getChildAt(1).visibility = View.GONE
         tlField.errorIconDrawable = null
-        prefixDivider.setBackgroundColor(
-            ContextCompat.getColor(
-                context,
-                R.color.AwesomeForm_color_error
-            )
-        )
+
+        prefixDivider.setBackgroundColor(errorColor)
+        tvAssistiveText.setTextColor(errorColor)
+        tvFieldLabel.setTextColor(errorColor)
     }
 
     fun getEditText() = etField
