@@ -8,6 +8,6 @@
     <item android:color="@color/AwesomeForm_focused_color" android:state_activated="true"/>
     <item android:color="@color/AwesomeForm_focused_color" android:state_pressed="true"/>
     <item android:color="@color/AwesomeForm_focused_color" android:state_selected="true"/>
-    <item android:color="#ebebeb" />
+    <item android:color="@color/AwesomeForm_strokeColor" />
 
 </selector>
