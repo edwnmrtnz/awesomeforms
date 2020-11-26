@@ -246,14 +246,19 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
     fun getText() = etField.text.toString()
 
     override fun onSaveInstanceState(): Parcelable? {
-        val superState = super.onSaveInstanceState()!!
-        return SavedState(superState, getText())
+        return SavedState(super.onSaveInstanceState()).apply {
+            childrenStates = saveChildViewStates()
+        }
     }
 
     override fun onRestoreInstanceState(state: Parcelable?) {
-        val savedState = state as SavedState
-        super.onRestoreInstanceState(state.superState)
-        etField.setText(savedState.text)
+        when (state) {
+            is SavedState -> {
+                super.onRestoreInstanceState(state.superState)
+                state.childrenStates?.let { restoreChildViewStates(it) }
+            }
+            else -> super.onRestoreInstanceState(state)
+        }
     }
 
     override fun dispatchSaveInstanceState(container: SparseArray<Parcelable>) {
@@ -266,35 +271,32 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
 
     internal class SavedState : BaseSavedState {
 
-        var text: String = ""
+        internal var childrenStates: SparseArray<Parcelable>? = null
+
+        constructor(superState: Parcelable?) : super(superState)
 
         constructor(source: Parcel) : super(source) {
-            text = source.readByte().toString()
+            childrenStates = source.readSparseArray(javaClass.classLoader)
         }
 
-        constructor(superState: Parcelable, text: String) : super(superState) {
-            this.text = text
+        override fun writeToParcel(out: Parcel, flags: Int) {
+            super.writeToParcel(out, flags)
+            out.writeSparseArray(childrenStates)
         }
-
-        override fun writeToParcel(parcel: Parcel, flags: Int) {
-            super.writeToParcel(parcel, flags)
-            parcel.writeString(text)
-        }
-
 
         companion object {
             @JvmField
             val CREATOR = object : Parcelable.Creator<SavedState> {
-                override fun createFromParcel(parcel: Parcel): SavedState {
-                    return SavedState(parcel)
+                override fun createFromParcel(p0: Parcel): SavedState {
+                    return SavedState(p0)
                 }
 
-                override fun newArray(size: Int): Array<SavedState?> {
-                    return arrayOfNulls(size)
+                override fun newArray(p0: Int): Array<SavedState?> {
+                    return arrayOfNulls(p0)
                 }
+
             }
         }
-
     }
 
     @ColorInt

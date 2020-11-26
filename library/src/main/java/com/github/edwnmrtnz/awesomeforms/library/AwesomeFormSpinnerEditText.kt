@@ -2,10 +2,13 @@ package com.github.edwnmrtnz.awesomeforms.library
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.os.Parcel
+import android.os.Parcelable
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.SparseArray
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -24,8 +27,7 @@ import com.google.android.material.textfield.TextInputLayout
  * Created by edwinmartinez on July 31, 2019
  */
 @Styleable("AwesomeFormSpinnerEditText")
-class AwesomeFormSpinnerEditText(context: Context, attrs: AttributeSet) :
-    ConstraintLayout(context, attrs) {
+class AwesomeFormSpinnerEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
 
     private val tvFieldLabel by lazy { findViewById<AppCompatTextView>(R.id.tvFieldLabelTitle) }
     private val tlField by lazy { findViewById<TextInputLayout>(R.id.tlField) }
@@ -38,6 +40,7 @@ class AwesomeFormSpinnerEditText(context: Context, attrs: AttributeSet) :
     private var assistiveText: String? = null
 
     init {
+        isSaveEnabled = true
         View.inflate(context, R.layout.awesomeform_spinner_edittext, this)
         style(attrs)
         setTextAppearance(R.style.AwesomeForm_EditText)
@@ -171,4 +174,57 @@ class AwesomeFormSpinnerEditText(context: Context, attrs: AttributeSet) :
     fun getText() = tvField.text.toString()
 
 
+    override fun onSaveInstanceState(): Parcelable? {
+        return SavedState(super.onSaveInstanceState()).apply {
+            childrenStates = saveChildViewStates()
+        }
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        when (state) {
+            is SavedState -> {
+                super.onRestoreInstanceState(state.superState)
+                state.childrenStates?.let { restoreChildViewStates(it) }
+            }
+            else -> super.onRestoreInstanceState(state)
+        }
+    }
+
+    override fun dispatchSaveInstanceState(container: SparseArray<Parcelable>) {
+        super.dispatchFreezeSelfOnly(container)
+    }
+
+    override fun dispatchRestoreInstanceState(container: SparseArray<Parcelable>) {
+        super.dispatchThawSelfOnly(container)
+    }
+
+    internal class SavedState : BaseSavedState {
+
+        internal var childrenStates: SparseArray<Parcelable>? = null
+
+        constructor(superState: Parcelable?) : super(superState)
+
+        constructor(source: Parcel) : super(source) {
+            childrenStates = source.readSparseArray(javaClass.classLoader)
+        }
+
+        override fun writeToParcel(out: Parcel, flags: Int) {
+            super.writeToParcel(out, flags)
+            out.writeSparseArray(childrenStates)
+        }
+
+        companion object {
+            @JvmField
+            val CREATOR = object : Parcelable.Creator<SavedState> {
+                override fun createFromParcel(p0: Parcel): SavedState {
+                    return SavedState(p0)
+                }
+
+                override fun newArray(p0: Int): Array<SavedState?> {
+                    return arrayOfNulls(p0)
+                }
+
+            }
+        }
+    }
 }
