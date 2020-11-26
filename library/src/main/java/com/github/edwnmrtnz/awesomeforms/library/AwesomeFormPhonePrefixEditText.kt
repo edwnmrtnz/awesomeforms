@@ -55,6 +55,7 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
     private val strokeColor = ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
 
     init {
+        isSaveEnabled = true
         View.inflate(context, R.layout.awesomeform_prefix_edittext, this)
         style(attrs)
         setTextAppearance(R.style.AwesomeForm_EditText)

@@ -10,8 +10,8 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.SparseArray
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import androidx.annotation.StyleRes
-import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -30,7 +30,8 @@ import com.google.android.material.textfield.TextInputLayout.END_ICON_PASSWORD_T
  */
 
 @Styleable("AwesomeFormPasswordEditText")
-class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
+class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) :
+    ConstraintLayout(context, attrs) {
 
     private val tvFieldLabel by lazy { findViewById<AppCompatTextView>(R.id.tvFieldLabelTitle) }
     private val tlField by lazy { findViewById<TextInputLayout>(R.id.tlField) }
@@ -40,29 +41,70 @@ class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : Cons
     internal val etField by lazy { findViewById<TextInputEditText>(R.id.etField) }
 
     private var isErrorEnabled = false
-    private var assistiveText : String? = null
+    private var assistiveText: String? = null
 
     init {
+        isSaveEnabled = true
         View.inflate(context, R.layout.awesomeform_password_edittext, this)
         style(attrs)
         setTextAppearance(R.style.AwesomeForm_EditText)
         textChangeListener()
         etField.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
-            if(hasFocus) {
-                if(isErrorEnabled) {
-                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
-                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+            if (hasFocus) {
+                if (isErrorEnabled) {
+                    tvFieldLabel.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.AwesomeForm_color_error
+                        )
+                    )
+                    tvAssistiveText.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.AwesomeForm_color_error
+                        )
+                    )
                 } else {
-                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
-                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
+                    tvFieldLabel.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.AwesomeForm_focused_color
+                        )
+                    )
+                    tvAssistiveText.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.AwesomeForm_focused_color
+                        )
+                    )
                 }
             } else {
-                if(isErrorEnabled) {
-                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
-                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+                if (isErrorEnabled) {
+                    tvFieldLabel.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.AwesomeForm_color_error
+                        )
+                    )
+                    tvAssistiveText.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.AwesomeForm_color_error
+                        )
+                    )
                 } else {
-                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
-                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
+                    tvFieldLabel.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.AwesomeForm_hintColor
+                        )
+                    )
+                    tvAssistiveText.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.AwesomeForm_hintColor
+                        )
+                    )
                 }
             }
         }
@@ -71,13 +113,15 @@ class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : Cons
     private fun textChangeListener() {
         etField.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                if(isErrorEnabled) {
+                if (isErrorEnabled) {
                     removeError()
                 }
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 //Ignore
             }
+
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 //Ignore
             }
@@ -112,22 +156,22 @@ class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : Cons
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_passwordToggleEnabled)
     fun setPasswordDrawableToggle(enabled: Boolean) {
-        this.tlField.endIconMode = if(enabled) END_ICON_PASSWORD_TOGGLE else END_ICON_NONE
+        this.tlField.endIconMode = if (enabled) END_ICON_PASSWORD_TOGGLE else END_ICON_NONE
     }
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_fieldLabel)
-    fun setFieldLabel(fieldLabel : String) {
+    fun setFieldLabel(fieldLabel: String) {
         this.tvFieldLabel.text = fieldLabel
         this.tvFieldLabel.visibility = View.VISIBLE
     }
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_fieldLabelTextColor)
-    fun setFieldLabelTextColor(fieldLabelTextColor : Int) {
+    fun setFieldLabelTextColor(fieldLabelTextColor: Int) {
         this.tvFieldLabel.setTextColor(fieldLabelTextColor)
     }
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_assistiveText)
-    fun setAssistiveText(assistiveText : String) {
+    fun setAssistiveText(assistiveText: String) {
         this.assistiveText = assistiveText
         this.tvAssistiveText.text = assistiveText
         this.tvAssistiveText.visibility = View.VISIBLE
@@ -139,56 +183,66 @@ class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : Cons
     }
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_placeholderText)
-    fun setPlaceHolderText(placeHolderText : String) {
+    fun setPlaceHolderText(placeHolderText: String) {
         this.etField.hint = placeHolderText
     }
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_placeholderTextColor)
-    fun setPlaceHolderTextColor(placeHolderTextColor : Int) {
+    fun setPlaceHolderTextColor(placeHolderTextColor: Int) {
         this.etField.setHintTextColor(placeHolderTextColor)
     }
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_android_imeOptions)
-    fun setImeOptions(imeOptions : Int) {
+    fun setImeOptions(imeOptions: Int) {
         this.etField.imeOptions = imeOptions
     }
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_android_inputType)
-    fun setInputType(inputType : Int) {
+    fun setInputType(inputType: Int) {
         this.etField.inputType = inputType
     }
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_android_maxLines)
-    fun setMaxLines(maxLine : Int) {
+    fun setMaxLines(maxLine: Int) {
         this.etField.maxLines = maxLine
     }
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_android_maxLength)
-    fun setMaxLength(maxLength : Int) {
+    fun setMaxLength(maxLength: Int) {
         this.etField.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLength))
     }
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_android_focusable)
-    fun setIsFocusable(isFocusable : Boolean) {
+    fun setIsFocusable(isFocusable: Boolean) {
         this.etField.isFocusable = isFocusable
     }
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_android_focusableInTouchMode)
-    fun setIsFocusableInTouchMode(isFocusableInTouchMode : Boolean) {
+    fun setIsFocusableInTouchMode(isFocusableInTouchMode: Boolean) {
         this.etField.isFocusableInTouchMode = isFocusableInTouchMode
     }
 
     @Attr(R2.styleable.AwesomeFormPasswordEditText_android_clickable)
-    fun setIsClickable(isClickable : Boolean) {
+    fun setIsClickable(isClickable: Boolean) {
         this.etField.isClickable = isClickable
     }
 
     fun removeError() {
         isErrorEnabled = false
-        tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
-        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
+        tvFieldLabel.setTextColor(
+            ContextCompat.getColor(
+                context,
+                R.color.AwesomeForm_focused_color
+            )
+        )
+        tvAssistiveText.setTextColor(
+            ContextCompat.getColor(
+                context,
+                R.color.AwesomeForm_focused_color
+            )
+        )
 
-        if(assistiveText != null) {
+        if (assistiveText != null) {
             tvAssistiveText.visibility = View.VISIBLE
             tvAssistiveText.text = assistiveText
         } else {
@@ -198,11 +252,16 @@ class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : Cons
 
     }
 
-    fun setError(errorMessage : String) {
+    fun setError(errorMessage: String) {
         isErrorEnabled = true
         tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
         tvAssistiveText.visibility = View.VISIBLE
-        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+        tvAssistiveText.setTextColor(
+            ContextCompat.getColor(
+                context,
+                R.color.AwesomeForm_color_error
+            )
+        )
         tvAssistiveText.text = errorMessage
         tlField.error = " "
         tlField.getChildAt(1).visibility = View.GONE
@@ -213,14 +272,14 @@ class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : Cons
 
     fun getEditText() = etField
 
-    fun setText(text : String) = etField.setText(text)
+    fun setText(text: String) = etField.setText(text)
 
     fun getText() = etField.text.toString()
 
 
     override fun onSaveInstanceState(): Parcelable? {
         val superState = super.onSaveInstanceState()!!
-        return  SavedState(superState, getText())
+        return SavedState(superState, getText())
     }
 
     override fun onRestoreInstanceState(state: Parcelable?) {
@@ -239,13 +298,13 @@ class AwesomeFormPasswordEditText (context: Context, attrs: AttributeSet) : Cons
 
     internal class SavedState : BaseSavedState {
 
-        var text : String = ""
+        var text: String = ""
 
-        constructor(source : Parcel) : super(source) {
+        constructor(source: Parcel) : super(source) {
             text = source.readByte().toString()
         }
 
-        constructor(superState: Parcelable, text : String) : super(superState) {
+        constructor(superState: Parcelable, text: String) : super(superState) {
             this.text = text
         }
 
