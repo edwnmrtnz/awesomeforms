@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/parentContainer"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp"
+            android:id="@+id/llContainer"
+            android:clipToPadding="true"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormNormalEditText
+                android:id="@+id/etFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:imeOptions="actionNext"
+                android:inputType="textNoSuggestions"
+                android:maxLines="1"
+                app:assistiveText=""
+                app:fieldLabel="First Name" />
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_marginTop="24dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormNormalEditText
+                    android:layout_weight="1"
+                    android:id="@+id/etLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:imeOptions="actionNext"
+                    android:inputType="textNoSuggestions"
+                    android:maxLines="1"
+                    app:assistiveText=""
+                    app:fieldLabel="Last Name" />
+
+                <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormSpinnerEditText
+                    android:layout_weight="0"
+                    android:id="@+id/etSuffix"
+                    android:layout_width="104dp"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    app:assistiveText=""
+                    app:fieldLabel="Suffix" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormPhonePrefixEditText
+                android:id="@+id/etMobileNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:inputType="number"
+                android:maxLength="10"
+                app:assistiveText=""
+                app:fieldLabel="Mobile Number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/etLastName"
+                app:layout_constraintTop_toBottomOf="@+id/etLastName" />
+
+
+            <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormPasswordEditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:drawablePadding="50dp"
+                app:assistiveText=""
+                app:fieldLabel="Password"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/etLastName"
+                app:layout_constraintTop_toBottomOf="@+id/etLastName" />
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -6,14 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="autoCompleteTextViewStyle">@android:style/Widget.AutoCompleteTextView</item>
     </style>
 
-    <style name="AwesomeForm.EditText.NumberEditText">
-        <item name="android:textSize">40sp</item>
-        <item name="android:textColor">@color/AwesomeForm_hintColor</item>
-        <item name="android:inputType">number</item>
-    </style>
+
 
 </resources>
 

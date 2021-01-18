@@ -1,78 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:fillViewport="true"
-        tools:context=".MainActivity">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/flContainer"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:fillViewport="true"/>
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
-        <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormNormalEditText
-                android:id="@+id/etFirstName"
-                app:fieldLabel="First Name"
-                android:inputType="numberDecimal"
-                android:imeOptions="actionDone"
-                app:assistiveText="Required"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
 
-        <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormNormalEditText
-                android:layout_marginTop="20dp"
-                android:id="@+id/etLastName"
-                app:fieldLabel="Last Name"
-                app:assistiveText="Required"
-                app:endIconDrawable="@drawable/password_toggle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
 
-        <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormNormalEditText
-                android:layout_marginTop="20dp"
-                android:id="@+id/etNumber"
-                app:fieldLabel="Number"
-                app:fieldStyle="@style/AwesomeForm.EditText.NumberEditText"
-                app:assistiveText="Required"
-                app:startIconDrawable="@drawable/password_toggle"
-                app:endIconDrawable="@drawable/password_toggle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormPasswordEditText
-                android:layout_marginTop="20dp"
-                android:id="@+id/etPassword"
-                app:fieldLabel="Password"
-                app:passwordToggleEnabled="true"
-                app:endIconDrawable="@drawable/toggle_password_selector"
-                app:endIconMode="password_toggle"
-                app:assistiveText="Required"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormSpinnerEditText
-                android:layout_marginTop="20dp"
-                android:id="@+id/etGender"
-                app:fieldLabel="Items"
-                app:assistiveText="Required"
-                app:placeholderText="Please select gender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormPhonePrefixEditText
-                android:layout_marginTop="20dp"
-                android:id="@+id/etText"
-                app:fieldLabel="Text"
-                android:inputType="text"
-                android:imeOptions="actionDone"
-                app:assistiveText="Optional"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-</ScrollView>
