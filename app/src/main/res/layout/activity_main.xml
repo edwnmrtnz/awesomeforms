@@ -34,17 +34,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormNormalEditText
-            android:layout_marginTop="20dp"
-            android:id="@+id/etNumber"
-            app:fieldLabel="Number"
-            app:fieldStyle="@style/AwesomeForm.EditText.NumberEditText"
-            app:assistiveText="Required"
-            app:startIconDrawable="@drawable/password_toggle"
-            app:endIconDrawable="@drawable/password_toggle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
         <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormPasswordEditText
             android:layout_marginTop="20dp"
             android:id="@+id/etPassword"

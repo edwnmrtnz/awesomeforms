@@ -13,15 +13,14 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         binding.etFirstName.setError("first name is required")
         binding.etLastName.setError("last name is required")
-        binding.etNumber.setError("input a number")
         binding.etPassword.setError("password required")
         binding.etGender.setError("this field is required")
         binding.etText.setError("this field is required")
 
         val adapter = ArrayAdapter(
-            this,
-            R.layout.awesomeform_dropdown_popup_item,
-            resources.getStringArray(R.array.exposed_dropdown_content)
+                this,
+                R.layout.awesomeform_dropdown_popup_item,
+                resources.getStringArray(R.array.exposed_dropdown_content)
         )
 
         binding. etGender.setAdapter(adapter)

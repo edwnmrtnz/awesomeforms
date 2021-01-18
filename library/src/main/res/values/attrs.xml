@@ -32,6 +32,7 @@
         <attr name="android:clickable"/>
         <attr name="android:focusableInTouchMode"/>
         <attr name="disableEmoji"/>
+        <attr name="android:textAppearance" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="AwesomeFormPasswordEditText">
@@ -55,6 +56,8 @@
         <attr name="android:focusable"/>
         <attr name="android:clickable"/>
         <attr name="android:focusableInTouchMode"/>
+        <attr name="android:textAppearance" format="reference"/>
+
     </declare-styleable>
 
     <declare-styleable name="AwesomeFormSpinnerEditText">
@@ -72,6 +75,7 @@
         <attr name="android:focusable"/>
         <attr name="android:clickable"/>
         <attr name="android:focusableInTouchMode"/>
+        <attr name="android:textAppearance" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="AwesomeFormPhonePrefixEditText">
@@ -85,7 +89,6 @@
         <attr name="fieldStyle"/>
         <attr name="endIconDrawable"/>
         <attr name="endIconMode"/>
-        <attr name="prefixTextColor"/>
         <attr name="android:imeOptions"/>
         <attr name="android:inputType"/>
         <attr name="android:maxLines"/>
@@ -93,6 +96,9 @@
         <attr name="android:focusable"/>
         <attr name="android:clickable"/>
         <attr name="android:focusableInTouchMode"/>
+        <attr name="android:drawablePadding" format="dimension"/>
+        <attr name="android:textAppearance" format="reference"/>
+
     </declare-styleable>
 
 </resources>
