@@ -60,6 +60,11 @@ class AwesomeFormNormalEditText (context: Context, attrs: AttributeSet) : Constr
         })
     }
 
+    @Attr(R2.styleable.AwesomeFormNormalEditText_disableEmoji)
+    fun disableEmoji(disableEmoji: Boolean = false) {
+        if(disableEmoji) this.etField.filters = EmojiFilter.filter
+    }
+
     @Attr(R2.styleable.AwesomeFormNormalEditText_startIconDrawable)
     fun setStartIconDrawable(drawable: Drawable) {
         this.tlField.startIconDrawable = drawable

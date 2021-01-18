@@ -10,6 +10,7 @@
     <attr name="placeholderTextColor" format="color"/>
     <attr name="textColor" format="color"/>
     <attr name="fieldStyle" format="reference"/>
+    <attr name="disableEmoji" format="boolean"/>
 
     <declare-styleable name="AwesomeFormNormalEditText">
         <attr name="fieldLabel"/>
@@ -30,6 +31,7 @@
         <attr name="android:focusable"/>
         <attr name="android:clickable"/>
         <attr name="android:focusableInTouchMode"/>
+        <attr name="disableEmoji"/>
     </declare-styleable>
 
     <declare-styleable name="AwesomeFormPasswordEditText">
