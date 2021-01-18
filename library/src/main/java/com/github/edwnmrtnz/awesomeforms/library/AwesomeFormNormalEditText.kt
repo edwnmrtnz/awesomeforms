@@ -21,6 +21,7 @@ import com.airbnb.paris.annotations.Attr
 import com.airbnb.paris.annotations.Styleable
 import com.airbnb.paris.annotations.StyleableChild
 import com.airbnb.paris.extensions.style
+import com.github.edwnmrtnz.awesomeforms.library.R2.styleable.AwesomeFormNormalEditText_fieldStyle
 import com.google.android.material.textfield.TextInputLayout
 
 /**
@@ -125,10 +126,14 @@ class AwesomeFormNormalEditText(context: Context, attrs: AttributeSet) :
             }
         })
     }
-
     @Attr(R2.styleable.AwesomeFormNormalEditText_android_textAppearance)
     fun setTextAppearance(@StyleRes textAppearance: Int) {
         TextViewCompat.setTextAppearance(etField, textAppearance)
+    }
+
+    @Attr(R2.styleable.AwesomeFormNormalEditText_disableEmoji)
+    fun disableEmoji(disableEmoji: Boolean = false) {
+        if(disableEmoji) this.etField.filters = EmojiFilter.filter
     }
 
     @Attr(R2.styleable.AwesomeFormNormalEditText_startIconDrawable)
