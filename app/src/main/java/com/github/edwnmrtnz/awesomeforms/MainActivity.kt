@@ -9,13 +9,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
         val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         binding.etFirstName.setError("first name is required")
         binding.etLastName.setError("last name is required")
         binding.etPassword.setError("password required")
         binding.etGender.setError("this field is required")
         binding.etText.setError("this field is required")
+
+        binding.etFirstName.setText("Olol ka ba?")
 
         val adapter = ArrayAdapter(
                 this,
