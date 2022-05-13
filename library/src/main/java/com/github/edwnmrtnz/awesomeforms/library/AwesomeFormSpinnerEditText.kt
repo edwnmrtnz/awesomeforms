@@ -135,6 +135,7 @@ class AwesomeFormSpinnerEditText(context: Context, attrs: AttributeSet) : Constr
 
     fun removeError() {
         isErrorEnabled = false
+
         tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
         tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
 

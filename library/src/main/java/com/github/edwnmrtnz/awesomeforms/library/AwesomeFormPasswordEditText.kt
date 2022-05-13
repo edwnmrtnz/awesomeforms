@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.Log
 import android.util.SparseArray
 import android.view.View
 import android.view.View.OnFocusChangeListener
@@ -236,18 +237,20 @@ class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) : Const
 
     fun removeError() {
         isErrorEnabled = false
-        tvFieldLabel.setTextColor(
-            ContextCompat.getColor(
-                context,
-                R.color.AwesomeForm_focused_color
+        if(etField.hasFocus()) {
+            tvFieldLabel.setTextColor(
+                ContextCompat.getColor(
+                    context,
+                    R.color.AwesomeForm_focused_color
+                )
             )
-        )
-        tvAssistiveText.setTextColor(
-            ContextCompat.getColor(
-                context,
-                R.color.AwesomeForm_focused_color
+            tvAssistiveText.setTextColor(
+                ContextCompat.getColor(
+                    context,
+                    R.color.AwesomeForm_focused_color
+                )
             )
-        )
+        }
 
         if (assistiveText != null) {
             tvAssistiveText.visibility = View.VISIBLE

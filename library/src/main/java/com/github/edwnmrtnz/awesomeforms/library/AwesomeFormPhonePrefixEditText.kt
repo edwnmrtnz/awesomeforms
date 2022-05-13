@@ -7,10 +7,7 @@ import android.os.Parcelable
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
-import android.util.AttributeSet
-import android.util.DisplayMetrics
-import android.util.SparseArray
-import android.util.TypedValue
+import android.util.*
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import androidx.annotation.AttrRes
@@ -208,9 +205,11 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
     fun removeError() {
         isErrorEnabled = false
 
-        tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
-        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
-        prefixDivider.setBackgroundColor(focusedColor)
+        if(etField.hasFocus()) {
+            tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
+            tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
+            prefixDivider.setBackgroundColor(focusedColor)
+        }
 
         if (assistiveText != null) {
             tvAssistiveText.visibility = View.VISIBLE
