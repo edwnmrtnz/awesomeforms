@@ -234,49 +234,47 @@ class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) : Const
     fun setIsClickable(isClickable: Boolean) {
         this.etField.isClickable = isClickable
     }
-
     fun removeError() {
         isErrorEnabled = false
+
         if(etField.hasFocus()) {
-            tvFieldLabel.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    R.color.AwesomeForm_focused_color
-                )
-            )
-            tvAssistiveText.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    R.color.AwesomeForm_focused_color
-                )
-            )
+            tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
+            tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
+        } else {
+            tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
+            tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
         }
 
+        setAssistiveTextBasedOnCurrentState()
+
+        tlField.error = null
+
+    }
+
+    private fun setAssistiveTextBasedOnCurrentState() {
         if (assistiveText != null) {
             tvAssistiveText.visibility = View.VISIBLE
             tvAssistiveText.text = assistiveText
         } else {
             tvAssistiveText.visibility = View.GONE
         }
-        tlField.error = null
-
     }
 
     fun setError(errorMessage: String) {
         isErrorEnabled = true
+
+        assistiveText = errorMessage
         tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+
         tvAssistiveText.visibility = View.VISIBLE
-        tvAssistiveText.setTextColor(
-            ContextCompat.getColor(
-                context,
-                R.color.AwesomeForm_color_error
-            )
-        )
         tvAssistiveText.text = errorMessage
+
         tlField.error = " "
         tlField.getChildAt(1).visibility = View.GONE
         tlField.errorIconDrawable = null
     }
+
 
     fun getTextInputLayout() = tlField
 
@@ -287,9 +285,11 @@ class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) : Const
     fun getText() = etField.text.toString()
 
 
-    override fun onSaveInstanceState(): Parcelable? {
+    override fun onSaveInstanceState(): Parcelable {
         return SavedState(super.onSaveInstanceState()).apply {
             childrenStates = saveChildViewStates()
+            isErrorEnabled = if(this@AwesomeFormPasswordEditText.isErrorEnabled) 1 else 0
+            assistiveText = this@AwesomeFormPasswordEditText.assistiveText
         }
     }
 
@@ -298,11 +298,22 @@ class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) : Const
             is SavedState -> {
                 super.onRestoreInstanceState(state.superState)
                 state.childrenStates?.let { restoreChildViewStates(it) }
+                this.isErrorEnabled = true.takeIf { state.isErrorEnabled == 1 } ?: false
+                this.assistiveText = state.assistiveText
             }
             else -> super.onRestoreInstanceState(state)
         }
+        restore()
     }
 
+    private fun restore() {
+        setAssistiveTextBasedOnCurrentState()
+        if(isErrorEnabled) {
+            setError(assistiveText ?: "")
+        } else {
+            removeError()
+        }
+    }
     override fun dispatchSaveInstanceState(container: SparseArray<Parcelable>) {
         super.dispatchFreezeSelfOnly(container)
     }
@@ -314,16 +325,22 @@ class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) : Const
     internal class SavedState : BaseSavedState {
 
         internal var childrenStates: SparseArray<Parcelable>? = null
+        internal var isErrorEnabled = 0 // 0 false, 1 true
+        internal var assistiveText : String? = null
 
         constructor(superState: Parcelable?) : super(superState)
 
         constructor(source: Parcel) : super(source) {
             childrenStates = source.readSparseArray(javaClass.classLoader)
+            isErrorEnabled = source.readInt()
+            assistiveText = source.readString()
         }
 
         override fun writeToParcel(out: Parcel, flags: Int) {
             super.writeToParcel(out, flags)
             out.writeSparseArray(childrenStates)
+            out.writeInt(isErrorEnabled)
+            out.writeString(assistiveText)
         }
 
         companion object {
