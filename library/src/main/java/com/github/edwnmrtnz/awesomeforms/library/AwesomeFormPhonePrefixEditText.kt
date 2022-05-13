@@ -204,6 +204,7 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
 
     fun removeError() {
         isErrorEnabled = false
+        assistiveText = null
 
         if(etField.hasFocus()) {
             tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))

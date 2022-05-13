@@ -262,6 +262,7 @@ class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) : Const
 
     fun setError(errorMessage: String) {
         isErrorEnabled = true
+        assistiveText = null
 
         assistiveText = errorMessage
         tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
