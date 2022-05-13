@@ -19,19 +19,14 @@ class MainActivity : AppCompatActivity() {
         if(savedInstanceState == null) {
             binding.etFirstName.setError("First name is required")
             binding.etLastName.setError("Last name is required")
+            binding.etGender.setError("Tequired")
         }
 
-//        binding.etGender.setError("this field is required")
-//        val adapter = ArrayAdapter(
-//                this,
-//                R.layout.awesomeform_dropdown_popup_item,
-//                resources.getStringArray(R.array.exposed_dropdown_content)
-//        )
-//
-//        binding.etGender.setAdapter(adapter)
-//
-//
-//        binding.etMobileNumber.removeError()
-
+        val adapter = ArrayAdapter(
+            this,
+            R.layout.awesomeform_dropdown_popup_item,
+            resources.getStringArray(R.array.exposed_dropdown_content)
+        )
+        binding.etGender.setAdapter(adapter)
     }
 }

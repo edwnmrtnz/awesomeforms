@@ -51,38 +51,46 @@ class AwesomeFormNormalEditText(context: Context, attrs: AttributeSet) :
         textChangeListener()
         etField.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                if (isErrorEnabled) {
-                    tvFieldLabel.setTextColor(
-                        ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
-                    )
-                    tvAssistiveText.setTextColor(
-                        ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
-                    )
-                } else {
-                    tvFieldLabel.setTextColor(
-                        ContextCompat.getColor(context, R.color.AwesomeForm_focused_color)
-                    )
-                    tvAssistiveText.setTextColor(
-                        ContextCompat.getColor(context, R.color.AwesomeForm_focused_color)
-                    )
-                }
+                handleChangeWhenInFocus(context)
             } else {
-                if (isErrorEnabled) {
-                    tvFieldLabel.setTextColor(
-                        ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
-                    )
-                    tvAssistiveText.setTextColor(
-                        ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
-                    )
-                } else {
-                    tvFieldLabel.setTextColor(
-                        ContextCompat.getColor(context, R.color.AwesomeForm_hintColor)
-                    )
-                    tvAssistiveText.setTextColor(
-                        ContextCompat.getColor(context, R.color.AwesomeForm_hintColor)
-                    )
-                }
+                handleChangeWhenInNotFocus(context)
             }
+        }
+    }
+
+    private fun handleChangeWhenInFocus(context: Context) {
+        if (isErrorEnabled) {
+            tvFieldLabel.setTextColor(
+                ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
+            )
+            tvAssistiveText.setTextColor(
+                ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
+            )
+        } else {
+            tvFieldLabel.setTextColor(
+                ContextCompat.getColor(context, R.color.AwesomeForm_focused_color)
+            )
+            tvAssistiveText.setTextColor(
+                ContextCompat.getColor(context, R.color.AwesomeForm_focused_color)
+            )
+        }
+    }
+
+    private fun handleChangeWhenInNotFocus(context: Context) {
+        if (isErrorEnabled) {
+            tvFieldLabel.setTextColor(
+                ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
+            )
+            tvAssistiveText.setTextColor(
+                ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
+            )
+        } else {
+            tvFieldLabel.setTextColor(
+                ContextCompat.getColor(context, R.color.AwesomeForm_hintColor)
+            )
+            tvAssistiveText.setTextColor(
+                ContextCompat.getColor(context, R.color.AwesomeForm_hintColor)
+            )
         }
     }
 
@@ -268,15 +276,12 @@ class AwesomeFormNormalEditText(context: Context, attrs: AttributeSet) :
     }
 
     private fun restore() {
-
         setAssistiveTextBasedOnCurrentState()
-
         if(isErrorEnabled) {
-            tlField.error = " "
-            tlField.getChildAt(1).visibility = View.GONE
-            tlField.errorIconDrawable = null
+            setError(assistiveText ?: "")
+        } else {
+            removeError()
         }
-
     }
 
     override fun dispatchSaveInstanceState(container: SparseArray<Parcelable>) {
