@@ -19,7 +19,9 @@ class MainActivity : AppCompatActivity() {
         if(savedInstanceState == null) {
             binding.etFirstName.setError("First name is required")
             binding.etLastName.setError("Last name is required")
-            binding.etGender.setError("Tequired")
+            binding.etGender.setError("Required")
+            binding.etMobileNumber.setError("Wew")
+
         }
 
         val adapter = ArrayAdapter(
@@ -28,5 +30,6 @@ class MainActivity : AppCompatActivity() {
             resources.getStringArray(R.array.exposed_dropdown_content)
         )
         binding.etGender.setAdapter(adapter)
+
     }
 }

@@ -208,15 +208,17 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
         if(etField.hasFocus()) {
             tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
             tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
+            prefixDivider.setBackgroundColor(focusedColor)
         } else {
+            prefixDivider.layoutParams.width = 2
             tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
             tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
+            prefixDivider.setBackgroundColor(strokeColor)
         }
 
         setAssistiveTextBasedOnCurrentState()
 
         tlField.error = null
-
     }
 
     private fun setAssistiveTextBasedOnCurrentState() {
@@ -232,11 +234,12 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
         isErrorEnabled = true
 
         assistiveText = errorMessage
-        tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
-        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
-
         tvAssistiveText.visibility = View.VISIBLE
         tvAssistiveText.text = errorMessage
+
+        prefixDivider.setBackgroundColor(errorColor)
+        tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
 
         tlField.error = " "
         tlField.getChildAt(1).visibility = View.GONE
