@@ -234,8 +234,10 @@ class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) : Const
     fun setIsClickable(isClickable: Boolean) {
         this.etField.isClickable = isClickable
     }
+
     fun removeError() {
         isErrorEnabled = false
+        assistiveText = null
 
         if(etField.hasFocus()) {
             tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
@@ -248,7 +250,6 @@ class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) : Const
         setAssistiveTextBasedOnCurrentState()
 
         tlField.error = null
-
     }
 
     private fun setAssistiveTextBasedOnCurrentState() {
