@@ -46,6 +46,7 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
 
     private var isErrorEnabled = false
     private var assistiveText: String? = null
+    private var errorText : String? = null
 
     private val errorColor = ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
     private val focusedColor = ContextCompat.getColor(context, R.color.AwesomeForm_focused_color)
@@ -204,7 +205,7 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
 
     fun removeError() {
         isErrorEnabled = false
-        assistiveText = null
+        errorText = null
 
         if(etField.hasFocus()) {
             tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
@@ -223,24 +224,30 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
     }
 
     private fun setAssistiveTextBasedOnCurrentState() {
-        if (assistiveText != null) {
+        if (!errorText.isNullOrBlank()) {
             tvAssistiveText.visibility = View.VISIBLE
-            tvAssistiveText.text = assistiveText
+            tvAssistiveText.text = errorText
+            val errorColor = ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
+            tvAssistiveText.setTextColor(errorColor)
         } else {
-            tvAssistiveText.visibility = View.GONE
+            if (!assistiveText.isNullOrBlank()) {
+                tvAssistiveText.visibility = View.VISIBLE
+                tvAssistiveText.text = assistiveText
+            } else {
+                tvAssistiveText.visibility = View.GONE
+            }
         }
     }
 
     fun setError(errorMessage: String) {
         isErrorEnabled = true
 
-        assistiveText = errorMessage
-        tvAssistiveText.visibility = View.VISIBLE
-        tvAssistiveText.text = errorMessage
+        errorText = errorMessage
 
         prefixDivider.setBackgroundColor(errorColor)
         tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
-        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+
+        setAssistiveTextBasedOnCurrentState()
 
         tlField.error = " "
         tlField.getChildAt(1).visibility = View.GONE
@@ -273,6 +280,7 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
                 state.childrenStates?.let { restoreChildViewStates(it) }
                 this.isErrorEnabled = true.takeIf { state.isErrorEnabled == 1 } ?: false
                 this.assistiveText = state.assistiveText
+                this.errorText = state.errorText
             }
             else -> super.onRestoreInstanceState(state)
         }
@@ -282,7 +290,7 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
     private fun restore() {
         setAssistiveTextBasedOnCurrentState()
         if(isErrorEnabled) {
-            setError(assistiveText ?: "")
+            setError(errorText ?: "")
         } else {
             removeError()
         }
@@ -300,6 +308,7 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
         internal var childrenStates: SparseArray<Parcelable>? = null
         internal var isErrorEnabled = 0 // 0 false, 1 true
         internal var assistiveText : String? = null
+        internal var errorText : String? = null
 
         constructor(superState: Parcelable?) : super(superState)
 
@@ -307,6 +316,7 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
             childrenStates = source.readSparseArray(javaClass.classLoader)
             isErrorEnabled = source.readInt()
             assistiveText = source.readString()
+            errorText = source.readString()
         }
 
         override fun writeToParcel(out: Parcel, flags: Int) {
@@ -314,6 +324,7 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
             out.writeSparseArray(childrenStates)
             out.writeInt(isErrorEnabled)
             out.writeString(assistiveText)
+            out.writeString(errorText)
         }
 
         companion object {

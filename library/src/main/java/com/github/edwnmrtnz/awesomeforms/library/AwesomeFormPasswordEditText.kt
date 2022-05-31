@@ -8,7 +8,6 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Log
 import android.util.SparseArray
 import android.view.View
 import android.view.View.OnFocusChangeListener
@@ -31,7 +30,8 @@ import com.google.android.material.textfield.TextInputLayout.END_ICON_PASSWORD_T
  */
 
 @Styleable("AwesomeFormPasswordEditText")
-class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
+class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) :
+    ConstraintLayout(context, attrs) {
 
     private val tvFieldLabel by lazy { findViewById<AppCompatTextView>(R.id.tvFieldLabelTitle) }
     private val tlField by lazy { findViewById<TextInputLayout>(R.id.tlField) }
@@ -42,6 +42,7 @@ class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) : Const
 
     private var isErrorEnabled = false
     private var assistiveText: String? = null
+    private var errorText: String? = null
 
     init {
         isSaveEnabled = true
@@ -237,9 +238,9 @@ class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) : Const
 
     fun removeError() {
         isErrorEnabled = false
-        assistiveText = null
+        errorText = null
 
-        if(etField.hasFocus()) {
+        if (etField.hasFocus()) {
             tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
             tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
         } else {
@@ -253,24 +254,28 @@ class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) : Const
     }
 
     private fun setAssistiveTextBasedOnCurrentState() {
-        if (assistiveText != null) {
+        if (!errorText.isNullOrBlank()) {
             tvAssistiveText.visibility = View.VISIBLE
-            tvAssistiveText.text = assistiveText
+            tvAssistiveText.text = errorText
+            val errorColor = ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
+            tvAssistiveText.setTextColor(errorColor)
         } else {
-            tvAssistiveText.visibility = View.GONE
+            if (!assistiveText.isNullOrBlank()) {
+                tvAssistiveText.visibility = View.VISIBLE
+                tvAssistiveText.text = assistiveText
+            } else {
+                tvAssistiveText.visibility = View.GONE
+            }
         }
     }
 
     fun setError(errorMessage: String) {
         isErrorEnabled = true
-        assistiveText = null
+        errorText = errorMessage
 
-        assistiveText = errorMessage
         tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
-        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
 
-        tvAssistiveText.visibility = View.VISIBLE
-        tvAssistiveText.text = errorMessage
+        setAssistiveTextBasedOnCurrentState()
 
         tlField.error = " "
         tlField.getChildAt(1).visibility = View.GONE
@@ -290,8 +295,9 @@ class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) : Const
     override fun onSaveInstanceState(): Parcelable {
         return SavedState(super.onSaveInstanceState()).apply {
             childrenStates = saveChildViewStates()
-            isErrorEnabled = if(this@AwesomeFormPasswordEditText.isErrorEnabled) 1 else 0
+            isErrorEnabled = if (this@AwesomeFormPasswordEditText.isErrorEnabled) 1 else 0
             assistiveText = this@AwesomeFormPasswordEditText.assistiveText
+            errorText = this@AwesomeFormPasswordEditText.errorText
         }
     }
 
@@ -302,6 +308,7 @@ class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) : Const
                 state.childrenStates?.let { restoreChildViewStates(it) }
                 this.isErrorEnabled = true.takeIf { state.isErrorEnabled == 1 } ?: false
                 this.assistiveText = state.assistiveText
+                this.errorText = state.errorText
             }
             else -> super.onRestoreInstanceState(state)
         }
@@ -310,12 +317,13 @@ class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) : Const
 
     private fun restore() {
         setAssistiveTextBasedOnCurrentState()
-        if(isErrorEnabled) {
-            setError(assistiveText ?: "")
+        if (isErrorEnabled) {
+            setError(errorText ?: "")
         } else {
             removeError()
         }
     }
+
     override fun dispatchSaveInstanceState(container: SparseArray<Parcelable>) {
         super.dispatchFreezeSelfOnly(container)
     }
@@ -328,7 +336,8 @@ class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) : Const
 
         internal var childrenStates: SparseArray<Parcelable>? = null
         internal var isErrorEnabled = 0 // 0 false, 1 true
-        internal var assistiveText : String? = null
+        internal var assistiveText: String? = null
+        internal var errorText: String? = null
 
         constructor(superState: Parcelable?) : super(superState)
 
@@ -336,6 +345,7 @@ class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) : Const
             childrenStates = source.readSparseArray(javaClass.classLoader)
             isErrorEnabled = source.readInt()
             assistiveText = source.readString()
+            errorText = source.readString()
         }
 
         override fun writeToParcel(out: Parcel, flags: Int) {
@@ -343,6 +353,7 @@ class AwesomeFormPasswordEditText(context: Context, attrs: AttributeSet) : Const
             out.writeSparseArray(childrenStates)
             out.writeInt(isErrorEnabled)
             out.writeString(assistiveText)
+            out.writeString(errorText)
         }
 
         companion object {

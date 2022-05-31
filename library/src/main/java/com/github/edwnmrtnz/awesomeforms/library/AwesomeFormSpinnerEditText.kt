@@ -38,6 +38,7 @@ class AwesomeFormSpinnerEditText(context: Context, attrs: AttributeSet) : Constr
 
     private var isErrorEnabled = false
     private var assistiveText: String? = null
+    private var errorText : String? = null
 
     init {
         isSaveEnabled = true
@@ -135,8 +136,7 @@ class AwesomeFormSpinnerEditText(context: Context, attrs: AttributeSet) : Constr
 
     fun removeError() {
         isErrorEnabled = false
-        assistiveText = null
-
+        errorText = null
 
         tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
         tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
@@ -157,13 +157,11 @@ class AwesomeFormSpinnerEditText(context: Context, attrs: AttributeSet) : Constr
 
     fun setError(errorMessage: String) {
         isErrorEnabled = true
+        errorText = errorMessage
 
-        assistiveText = errorMessage
         tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
-        tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
 
-        tvAssistiveText.visibility = View.VISIBLE
-        tvAssistiveText.text = errorMessage
+        setAssistiveTextBasedOnCurrentState()
 
         tlField.error = " "
         tlField.getChildAt(1).visibility = View.GONE
@@ -186,6 +184,7 @@ class AwesomeFormSpinnerEditText(context: Context, attrs: AttributeSet) : Constr
             childrenStates = saveChildViewStates()
             isErrorEnabled = if(this@AwesomeFormSpinnerEditText.isErrorEnabled) 1 else 0
             assistiveText = this@AwesomeFormSpinnerEditText.assistiveText
+            errorText = this@AwesomeFormSpinnerEditText.errorText
         }
     }
 
@@ -196,6 +195,7 @@ class AwesomeFormSpinnerEditText(context: Context, attrs: AttributeSet) : Constr
                 state.childrenStates?.let { restoreChildViewStates(it) }
                 this.isErrorEnabled = true.takeIf { state.isErrorEnabled == 1 } ?: false
                 this.assistiveText = state.assistiveText
+                this.errorText = state.errorText
             }
             else -> super.onRestoreInstanceState(state)
         }
@@ -205,7 +205,7 @@ class AwesomeFormSpinnerEditText(context: Context, attrs: AttributeSet) : Constr
     private fun restore() {
         setAssistiveTextBasedOnCurrentState()
         if(isErrorEnabled) {
-            setError(assistiveText ?: "")
+            setError(errorText ?: "")
         } else {
             removeError()
         }
@@ -225,6 +225,7 @@ class AwesomeFormSpinnerEditText(context: Context, attrs: AttributeSet) : Constr
         internal var childrenStates: SparseArray<Parcelable>? = null
         internal var isErrorEnabled = 0 // 0 false, 1 true
         internal var assistiveText : String? = null
+        internal var errorText : String? = null
 
         constructor(superState: Parcelable?) : super(superState)
 
@@ -239,6 +240,7 @@ class AwesomeFormSpinnerEditText(context: Context, attrs: AttributeSet) : Constr
             out.writeSparseArray(childrenStates)
             out.writeInt(isErrorEnabled)
             out.writeString(assistiveText)
+            out.writeString(errorText)
         }
 
         companion object {
