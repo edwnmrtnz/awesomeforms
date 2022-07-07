@@ -135,6 +135,7 @@ class AwesomeFormNormalEditText(context: Context, attrs: AttributeSet) :
 
     @Attr(R2.styleable.AwesomeFormNormalEditText_endIconMode)
     fun setEndIconMode(mode: Int = TextInputLayout.END_ICON_NONE) {
+        this.tlField.setEndIconMode(TextInputLayout.END_ICON_CUSTOM)
         this.tlField.endIconMode = mode
     }
 

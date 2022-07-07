@@ -73,6 +73,7 @@ class AwesomeFormSpinnerEditText(context: Context, attrs: AttributeSet) : Constr
 
     @Attr(R2.styleable.AwesomeFormSpinnerEditText_startIconDrawable)
     fun setStartIconDrawable(drawable: Drawable) {
+        this.tlField.setEndIconMode(TextInputLayout.END_ICON_CUSTOM)
         this.tlField.startIconDrawable = drawable
     }
 
