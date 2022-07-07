@@ -126,8 +126,8 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_endIconDrawable)
     fun setEndIconDrawable(drawable: Drawable) {
+        this.tlField.setEndIconMode(TextInputLayout.END_ICON_CUSTOM)
         this.tlField.endIconDrawable = drawable
-        this.setEndIconMode(TextInputLayout.END_ICON_CUSTOM)
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_endIconMode)
