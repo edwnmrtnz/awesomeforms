@@ -78,7 +78,8 @@
         <attr name="android:textAppearance" format="reference"/>
     </declare-styleable>
 
-    <declare-styleable name="AwesomeFormPhonePrefixEditText">
+    <declare-styleable name="AwesomeFormPrefixedEditText">
+        <attr name="prefix"/>
         <attr name="fieldLabel"/>
         <attr name="assistiveText"/>
         <attr name="fieldLabelTextColor"/>

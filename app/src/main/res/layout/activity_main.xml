@@ -35,7 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormPhonePrefixEditText
+        <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormPrefixedEditText
+            app:prefix="+2312312"
             android:layout_marginTop="20dp"
             android:id="@+id/etMobileNumber"
             app:fieldLabel="Mobile Number"

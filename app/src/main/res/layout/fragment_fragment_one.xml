@@ -70,7 +70,7 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormPhonePrefixEditText
+            <com.github.edwnmrtnz.awesomeforms.library.AwesomeFormPrefixedEditText
                 android:id="@+id/etMobileNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

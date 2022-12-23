@@ -1,13 +1,10 @@
 package com.github.edwnmrtnz.awesomeforms.library
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Parcel
 import android.os.Parcelable
-import android.text.Editable
 import android.text.InputFilter
-import android.text.TextWatcher
 import android.util.*
 import android.view.View
 import android.view.View.OnFocusChangeListener
@@ -15,7 +12,6 @@ import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
 import androidx.annotation.StyleRes
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -37,14 +33,14 @@ import com.google.android.material.textfield.TextInputLayout
  * See here: https://github.com/material-components/material-components-android/blob/master/lib/java/com/google/android/material/textfield/TextInputLayout.java
  */
 
-@Styleable("AwesomeFormPhonePrefixEditText")
-class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
+@Styleable("AwesomeFormPrefixedEditText")
+class AwesomeFormPrefixedEditText(context: Context, attrs: AttributeSet) :
     ConstraintLayout(context, attrs) {
 
     private val tvFieldLabel by lazy { findViewById<AppCompatTextView>(R.id.tvFieldLabelTitle) }
     private val tlField by lazy { findViewById<TextInputLayout>(R.id.tlField) }
     private val tvAssistiveText by lazy { findViewById<AppCompatTextView>(R.id.tvAssistiveText) }
-    @StyleableChild(R2.styleable.AwesomeFormPhonePrefixEditText_fieldStyle)
+    @StyleableChild(R2.styleable.AwesomeFormPrefixedEditText_fieldStyle)
     internal val etField by lazy { findViewById<AppCompatEditText>(R.id.etField) }
 
     private val tlPrefix by lazy { findViewById<TextInputLayout>(R.id.tlPrefix) }
@@ -57,16 +53,16 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
 
     init {
         isSaveEnabled = true
-        View.inflate(context, R.layout.awesomeform_prefix_edittext, this)
+        View.inflate(context, R.layout.awesomeform_prefixed_edittext, this)
         style(attrs)
         setTextAppearance(R.style.AwesomeForm_EditText)
-
 
         etField.doAfterTextChanged {
             if (isErrorEnabled) {
                 removeError()
             }
         }
+
         etField.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
             if(hasFocus) {
                 if(isErrorEnabled) {
@@ -93,13 +89,18 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
         }
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_textAppearance)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_prefix)
+    fun setPrefix(prefix : String) {
+        tvPrefix.setText(prefix)
+    }
+
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_android_textAppearance)
     fun setTextAppearance(@StyleRes textAppearance: Int) {
         TextViewCompat.setTextAppearance(this.etField, textAppearance)
         TextViewCompat.setTextAppearance(this.tvPrefix, textAppearance)
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_drawablePadding)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_android_drawablePadding)
     fun setDrawablePadding(@Px padding: Float) {
         val dp = convertPixelsToDp(
             padding, context
@@ -111,81 +112,81 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
         return px / (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_endIconDrawable)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_endIconDrawable)
     fun setEndIconDrawable(drawable: Drawable) {
         this.tlField.setEndIconMode(TextInputLayout.END_ICON_CUSTOM)
         this.tlField.endIconDrawable = drawable
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_endIconMode)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_endIconMode)
     fun setEndIconMode(mode: Int = TextInputLayout.END_ICON_NONE) {
         this.tlField.endIconMode = mode
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_fieldLabel)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_fieldLabel)
     fun setFieldLabel(fieldLabel: String) {
         this.tvFieldLabel.text = fieldLabel
         this.tvFieldLabel.visibility = View.VISIBLE
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_fieldLabelTextColor)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_fieldLabelTextColor)
     fun setFieldLabelTextColor(fieldLabelTextColor: Int) {
         this.tvFieldLabel.setTextColor(fieldLabelTextColor)
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_assistiveText)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_assistiveText)
     fun setAssistiveText(assistiveText: String) {
         this.assistiveText = assistiveText
         this.tvAssistiveText.text = assistiveText
         this.tvAssistiveText.visibility = View.VISIBLE
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_assistiveTextColor)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_assistiveTextColor)
     fun setAssistiveTextColor(assistiveTextColor: Int) {
         this.tvAssistiveText.setTextColor(assistiveTextColor)
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_placeholderText)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_placeholderText)
     fun setPlaceHolderText(placeHolderText: String) {
         this.etField.hint = placeHolderText
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_placeholderTextColor)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_placeholderTextColor)
     fun setPlaceHolderTextColor(placeHolderTextColor: Int) {
         this.etField.setHintTextColor(placeHolderTextColor)
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_imeOptions)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_android_imeOptions)
     fun setImeOptions(imeOptions: Int) {
         this.etField.imeOptions = imeOptions
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_inputType)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_android_inputType)
     fun setInputType(inputType: Int) {
         this.etField.inputType = inputType
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_maxLines)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_android_maxLines)
     fun setMaxLines(maxLine: Int) {
         this.etField.maxLines = maxLine
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_maxLength)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_android_maxLength)
     fun setMaxLength(maxLength: Int) {
         this.etField.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLength))
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_focusable)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_android_focusable)
     fun setIsFocusable(isFocusable: Boolean) {
         this.etField.isFocusable = isFocusable
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_focusableInTouchMode)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_android_focusableInTouchMode)
     fun setIsFocusableInTouchMode(isFocusableInTouchMode: Boolean) {
         this.etField.isFocusableInTouchMode = isFocusableInTouchMode
     }
 
-    @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_clickable)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_android_clickable)
     fun setIsClickable(isClickable: Boolean) {
         this.etField.isClickable = isClickable
     }
@@ -256,8 +257,8 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
     override fun onSaveInstanceState(): Parcelable {
         return SavedState(super.onSaveInstanceState()).apply {
             childrenStates = saveChildViewStates()
-            isErrorEnabled = if(this@AwesomeFormPhonePrefixEditText.isErrorEnabled) 1 else 0
-            assistiveText = this@AwesomeFormPhonePrefixEditText.assistiveText
+            isErrorEnabled = if(this@AwesomeFormPrefixedEditText.isErrorEnabled) 1 else 0
+            assistiveText = this@AwesomeFormPrefixedEditText.assistiveText
         }
     }
 
