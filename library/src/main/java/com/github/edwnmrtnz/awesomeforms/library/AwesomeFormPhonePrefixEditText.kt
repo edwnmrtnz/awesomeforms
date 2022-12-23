@@ -1,6 +1,7 @@
 package com.github.edwnmrtnz.awesomeforms.library
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Parcel
 import android.os.Parcelable
@@ -14,11 +15,13 @@ import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
 import androidx.annotation.StyleRes
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
+import androidx.core.widget.doAfterTextChanged
 import com.airbnb.paris.annotations.Attr
 import com.airbnb.paris.annotations.Styleable
 import com.airbnb.paris.annotations.StyleableChild
@@ -28,6 +31,10 @@ import com.google.android.material.textfield.TextInputLayout
 
 /**
  * Created by edwinmartinez on July 31, 2019
+ *
+ * Note: This EditText is using the isHovered state to manipulate the colors of borders around
+ * prefix. This is a hack for now as the implementation doesn't support custom color state yet.
+ * See here: https://github.com/material-components/material-components-android/blob/master/lib/java/com/google/android/material/textfield/TextInputLayout.java
  */
 
 @Styleable("AwesomeFormPhonePrefixEditText")
@@ -37,73 +44,53 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
     private val tvFieldLabel by lazy { findViewById<AppCompatTextView>(R.id.tvFieldLabelTitle) }
     private val tlField by lazy { findViewById<TextInputLayout>(R.id.tlField) }
     private val tvAssistiveText by lazy { findViewById<AppCompatTextView>(R.id.tvAssistiveText) }
-    private val prefixDivider by lazy { findViewById<View>(R.id.prefixDivider) }
-
-    private val tvPrefix by lazy { findViewById<AppCompatTextView>(R.id.tvPrefix) }
-
     @StyleableChild(R2.styleable.AwesomeFormPhonePrefixEditText_fieldStyle)
     internal val etField by lazy { findViewById<AppCompatEditText>(R.id.etField) }
+
+    private val tlPrefix by lazy { findViewById<TextInputLayout>(R.id.tlPrefix) }
+    private val tvPrefix by lazy { findViewById<AppCompatEditText>(R.id.tvPrefix) }
 
     private var isErrorEnabled = false
     private var assistiveText: String? = null
     private var errorText : String? = null
 
-    private val errorColor = ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
-    private val focusedColor = ContextCompat.getColor(context, R.color.AwesomeForm_focused_color)
-    private val strokeColor = ContextCompat.getColor(context, R.color.material_textinputlayout_box_color)
 
     init {
         isSaveEnabled = true
         View.inflate(context, R.layout.awesomeform_prefix_edittext, this)
         style(attrs)
         setTextAppearance(R.style.AwesomeForm_EditText)
-        textChangeListener()
 
+
+        etField.doAfterTextChanged {
+            if (isErrorEnabled) {
+                removeError()
+            }
+        }
         etField.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
             if(hasFocus) {
-                prefixDivider.layoutParams.width = 6
                 if(isErrorEnabled) {
                     tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
                     tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
-                    prefixDivider.setBackgroundColor(errorColor)
                 } else {
-                    prefixDivider.setBackgroundColor(focusedColor)
+                    tlPrefix.isHovered = true
                     tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
                     tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
                 }
-
+                tlPrefix.boxStrokeWidth = tlField.boxStrokeWidthFocused
             } else {
-                prefixDivider.layoutParams.width = 2
                 if(isErrorEnabled) {
-                    prefixDivider.setBackgroundColor(errorColor)
                     tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
                     tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
                 } else {
-                    prefixDivider.setBackgroundColor(strokeColor)
+                    tlPrefix.isHovered = false
                     tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
                     tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
                 }
+                tlPrefix.boxStrokeWidth = tlField.boxStrokeWidth
             }
-            prefixDivider.requestLayout()
+
         }
-    }
-
-    private fun textChangeListener() {
-        etField.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-                if (isErrorEnabled) {
-                    removeError()
-                }
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                //Ignore
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                //Ignore
-            }
-        })
     }
 
     @Attr(R2.styleable.AwesomeFormPhonePrefixEditText_android_textAppearance)
@@ -208,19 +195,19 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
         errorText = null
 
         if(etField.hasFocus()) {
+            tlPrefix.isHovered = true
             tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
             tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
-            prefixDivider.setBackgroundColor(focusedColor)
         } else {
-            prefixDivider.layoutParams.width = 2
+            tlPrefix.isHovered = false
             tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
             tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
-            prefixDivider.setBackgroundColor(strokeColor)
         }
 
         setAssistiveTextBasedOnCurrentState()
 
         tlField.error = null
+        tlPrefix.error = null
     }
 
     private fun setAssistiveTextBasedOnCurrentState() {
@@ -244,14 +231,15 @@ class AwesomeFormPhonePrefixEditText(context: Context, attrs: AttributeSet) :
 
         errorText = errorMessage
 
-        prefixDivider.setBackgroundColor(errorColor)
         tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
 
         setAssistiveTextBasedOnCurrentState()
 
-        tlField.error = " "
-        tlField.getChildAt(1).visibility = View.GONE
-        tlField.errorIconDrawable = null
+        listOf<TextInputLayout>(tlField, tlPrefix).forEach { tl ->
+            tl.error = " "
+            tl.getChildAt(1).visibility = View.GONE
+            tl.errorIconDrawable = null
+        }
     }
 
 
