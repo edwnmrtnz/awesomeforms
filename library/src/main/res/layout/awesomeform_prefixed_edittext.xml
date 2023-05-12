@@ -3,9 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height='wrap_content'
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp"
     tools:orientation="horizontal"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvFieldLabelTitle"
@@ -48,29 +51,58 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tlField"
+        android:id="@+id/tlPrefix"
         style="@style/AwesomeForm.TextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintHeight_min="wrap"
-        android:layout_marginBottom="0dp"
+        app:boxCornerRadiusBottomEnd="0dp"
+        app:boxCornerRadiusTopEnd="0dp"
         app:hintEnabled="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFieldLabelTitle">
+        app:layout_constraintTop_toBottomOf="@id/tvFieldLabelTitle">
 
         <androidx.appcompat.widget.AppCompatEditText
+            android:enabled="true"
+            android:id="@+id/tvPrefix"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="textNoSuggestions"
+            android:text="+63"
+            android:textAppearance="@style/AwesomeForm.EditText"
+            android:textColor="@color/AwesomeForm_textColor"
+            android:textCursorDrawable="@drawable/awesomeform_color_cursor"
+            tools:ignore="HardcodedText,RtlSymmetry,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="8dp"
+        android:id="@+id/tlField"
+        style="@style/AwesomeForm.TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:translationX="-1.5dp"
+        app:boxCornerRadiusBottomStart="0dp"
+        app:boxCornerRadiusTopStart="0dp"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tlPrefix"
+        app:layout_constraintTop_toBottomOf="@id/tvFieldLabelTitle">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
             android:id="@+id/etField"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="top"
-            android:gravity="top"
             android:inputType="textNoSuggestions"
+            android:textAppearance="@style/AwesomeForm.EditText"
             android:textColor="@color/AwesomeForm_textColor"
             android:textCursorDrawable="@drawable/awesomeform_color_cursor"
-            android:textStyle="normal" />
+            tools:ignore="RtlSymmetry,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -4,204 +4,189 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Parcel
 import android.os.Parcelable
-import android.text.Editable
 import android.text.InputFilter
-import android.text.TextWatcher
-import android.util.AttributeSet
-import android.util.Log
-import android.util.SparseArray
+import android.util.*
 import android.view.View
 import android.view.View.OnFocusChangeListener
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
+import androidx.annotation.Px
 import androidx.annotation.StyleRes
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
+import androidx.core.widget.doAfterTextChanged
 import com.airbnb.paris.annotations.Attr
 import com.airbnb.paris.annotations.Styleable
 import com.airbnb.paris.annotations.StyleableChild
 import com.airbnb.paris.extensions.style
-import com.github.edwnmrtnz.awesomeforms.library.R2.styleable.AwesomeFormNormalEditText_fieldStyle
 import com.google.android.material.textfield.TextInputLayout
+
 
 /**
  * Created by edwinmartinez on July 31, 2019
+ *
+ * Note: This EditText is using the isHovered state to manipulate the colors of borders around
+ * prefix. This is a hack for now as the implementation doesn't support custom color state yet.
+ * See here: https://github.com/material-components/material-components-android/blob/master/lib/java/com/google/android/material/textfield/TextInputLayout.java
  */
 
-@Styleable("AwesomeFormNormalEditText")
-class AwesomeFormNormalEditText(context: Context, attrs: AttributeSet) :
+@Styleable("AwesomeFormPrefixedEditText")
+class AwesomeFormPrefixedEditText(context: Context, attrs: AttributeSet) :
     ConstraintLayout(context, attrs) {
 
     private val tvFieldLabel by lazy { findViewById<AppCompatTextView>(R.id.tvFieldLabelTitle) }
     private val tlField by lazy { findViewById<TextInputLayout>(R.id.tlField) }
     private val tvAssistiveText by lazy { findViewById<AppCompatTextView>(R.id.tvAssistiveText) }
-
-    @StyleableChild(R2.styleable.AwesomeFormNormalEditText_fieldStyle)
+    @StyleableChild(R2.styleable.AwesomeFormPrefixedEditText_fieldStyle)
     internal val etField by lazy { findViewById<AppCompatEditText>(R.id.etField) }
+
+    private val tlPrefix by lazy { findViewById<TextInputLayout>(R.id.tlPrefix) }
+    private val tvPrefix by lazy { findViewById<AppCompatEditText>(R.id.tvPrefix) }
 
     private var isErrorEnabled = false
     private var assistiveText: String? = null
     private var errorText : String? = null
 
+
     init {
         isSaveEnabled = true
-        View.inflate(context, R.layout.awesomeform_normal_edittext, this)
+        View.inflate(context, R.layout.awesomeform_prefixed_edittext, this)
         style(attrs)
         setTextAppearance(R.style.AwesomeForm_EditText)
-        textChangeListener()
+
+        etField.doAfterTextChanged {
+            if (isErrorEnabled) {
+                removeError()
+            }
+        }
+
         etField.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                handleChangeWhenInFocus(context)
-            } else {
-                handleChangeWhenInNotFocus(context)
-            }
-        }
-    }
-
-    private fun handleChangeWhenInFocus(context: Context) {
-        if (isErrorEnabled) {
-            tvFieldLabel.setTextColor(
-                ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
-            )
-            tvAssistiveText.setTextColor(
-                ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
-            )
-        } else {
-            tvFieldLabel.setTextColor(
-                ContextCompat.getColor(context, R.color.AwesomeForm_focused_color)
-            )
-            tvAssistiveText.setTextColor(
-                ContextCompat.getColor(context, R.color.AwesomeForm_focused_color)
-            )
-        }
-    }
-
-    private fun handleChangeWhenInNotFocus(context: Context) {
-        if (isErrorEnabled) {
-            tvFieldLabel.setTextColor(
-                ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
-            )
-            tvAssistiveText.setTextColor(
-                ContextCompat.getColor(context, R.color.AwesomeForm_color_error)
-            )
-        } else {
-            tvFieldLabel.setTextColor(
-                ContextCompat.getColor(context, R.color.AwesomeForm_hintColor)
-            )
-            tvAssistiveText.setTextColor(
-                ContextCompat.getColor(context, R.color.AwesomeForm_hintColor)
-            )
-        }
-    }
-
-    private fun textChangeListener() {
-        etField.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-                if (isErrorEnabled) {
-                    removeError()
+            if(hasFocus) {
+                if(isErrorEnabled) {
+                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+                } else {
+                    tlPrefix.isHovered = true
+                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
+                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
                 }
+                tlPrefix.boxStrokeWidth = tlField.boxStrokeWidthFocused
+            } else {
+                if(isErrorEnabled) {
+                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
+                } else {
+                    tlPrefix.isHovered = false
+                    tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
+                    tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
+                }
+                tlPrefix.boxStrokeWidth = tlField.boxStrokeWidth
             }
 
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                //Ignore
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                //Ignore
-            }
-        })
+        }
     }
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_textAppearance)
+
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_prefix)
+    fun setPrefix(prefix : String) {
+        tvPrefix.setText(prefix)
+    }
+
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_android_textAppearance)
     fun setTextAppearance(@StyleRes textAppearance: Int) {
-        TextViewCompat.setTextAppearance(etField, textAppearance)
+        TextViewCompat.setTextAppearance(this.etField, textAppearance)
+        TextViewCompat.setTextAppearance(this.tvPrefix, textAppearance)
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_disableEmoji)
-    fun disableEmoji(disableEmoji: Boolean = false) {
-        if(disableEmoji) this.etField.filters = EmojiFilter.filter
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_android_drawablePadding)
+    fun setDrawablePadding(@Px padding: Float) {
+        val dp = convertPixelsToDp(
+            padding, context
+        ).toInt()
+        this.etField.compoundDrawablePadding = dp
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_startIconDrawable)
-    fun setStartIconDrawable(drawable: Drawable) {
-        this.tlField.startIconDrawable = drawable
+    private fun convertPixelsToDp(px: Float, context: Context): Float {
+        return px / (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_endIconDrawable)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_endIconDrawable)
     fun setEndIconDrawable(drawable: Drawable) {
         this.tlField.setEndIconMode(TextInputLayout.END_ICON_CUSTOM)
         this.tlField.endIconDrawable = drawable
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_endIconMode)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_endIconMode)
     fun setEndIconMode(mode: Int = TextInputLayout.END_ICON_NONE) {
         this.tlField.endIconMode = mode
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_fieldLabel)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_fieldLabel)
     fun setFieldLabel(fieldLabel: String) {
         this.tvFieldLabel.text = fieldLabel
         this.tvFieldLabel.visibility = View.VISIBLE
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_fieldLabelTextColor)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_fieldLabelTextColor)
     fun setFieldLabelTextColor(fieldLabelTextColor: Int) {
         this.tvFieldLabel.setTextColor(fieldLabelTextColor)
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_assistiveText)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_assistiveText)
     fun setAssistiveText(assistiveText: String) {
         this.assistiveText = assistiveText
         this.tvAssistiveText.text = assistiveText
         this.tvAssistiveText.visibility = View.VISIBLE
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_assistiveTextColor)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_assistiveTextColor)
     fun setAssistiveTextColor(assistiveTextColor: Int) {
         this.tvAssistiveText.setTextColor(assistiveTextColor)
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_placeholderText)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_placeholderText)
     fun setPlaceHolderText(placeHolderText: String) {
         this.etField.hint = placeHolderText
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_placeholderTextColor)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_placeholderTextColor)
     fun setPlaceHolderTextColor(placeHolderTextColor: Int) {
         this.etField.setHintTextColor(placeHolderTextColor)
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_imeOptions)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_android_imeOptions)
     fun setImeOptions(imeOptions: Int) {
         this.etField.imeOptions = imeOptions
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_inputType)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_android_inputType)
     fun setInputType(inputType: Int) {
         this.etField.inputType = inputType
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_maxLines)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_android_maxLines)
     fun setMaxLines(maxLine: Int) {
         this.etField.maxLines = maxLine
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_maxLength)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_android_maxLength)
     fun setMaxLength(maxLength: Int) {
         this.etField.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLength))
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_focusable)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_android_focusable)
     fun setIsFocusable(isFocusable: Boolean) {
         this.etField.isFocusable = isFocusable
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_focusableInTouchMode)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_android_focusableInTouchMode)
     fun setIsFocusableInTouchMode(isFocusableInTouchMode: Boolean) {
         this.etField.isFocusableInTouchMode = isFocusableInTouchMode
     }
 
-    @Attr(R2.styleable.AwesomeFormNormalEditText_android_clickable)
+    @Attr(R2.styleable.AwesomeFormPrefixedEditText_android_clickable)
     fun setIsClickable(isClickable: Boolean) {
         this.etField.isClickable = isClickable
     }
@@ -211,9 +196,11 @@ class AwesomeFormNormalEditText(context: Context, attrs: AttributeSet) :
         errorText = null
 
         if(etField.hasFocus()) {
+            tlPrefix.isHovered = true
             tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
             tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_focused_color))
         } else {
+            tlPrefix.isHovered = false
             tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
             tvAssistiveText.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_hintColor))
         }
@@ -221,7 +208,7 @@ class AwesomeFormNormalEditText(context: Context, attrs: AttributeSet) :
         setAssistiveTextBasedOnCurrentState()
 
         tlField.error = null
-
+        tlPrefix.error = null
     }
 
     private fun setAssistiveTextBasedOnCurrentState() {
@@ -242,16 +229,20 @@ class AwesomeFormNormalEditText(context: Context, attrs: AttributeSet) :
 
     fun setError(errorMessage: String) {
         isErrorEnabled = true
+
         errorText = errorMessage
 
         tvFieldLabel.setTextColor(ContextCompat.getColor(context, R.color.AwesomeForm_color_error))
 
         setAssistiveTextBasedOnCurrentState()
 
-        tlField.error = " "
-        tlField.getChildAt(1).visibility = View.GONE
-        tlField.errorIconDrawable = null
+        listOf<TextInputLayout>(tlField, tlPrefix).forEach { tl ->
+            tl.error = " "
+            tl.getChildAt(1).visibility = View.GONE
+            tl.errorIconDrawable = null
+        }
     }
+
 
     fun getEditText() = etField
 
@@ -259,14 +250,15 @@ class AwesomeFormNormalEditText(context: Context, attrs: AttributeSet) :
 
     fun setText(text: String) = etField.setText(text)
 
+    fun getPrefix() = tvPrefix
+
     fun getText() = etField.text.toString()
 
     override fun onSaveInstanceState(): Parcelable {
         return SavedState(super.onSaveInstanceState()).apply {
             childrenStates = saveChildViewStates()
-            isErrorEnabled = if(this@AwesomeFormNormalEditText.isErrorEnabled) 1 else 0
-            assistiveText = this@AwesomeFormNormalEditText.assistiveText
-            errorText = this@AwesomeFormNormalEditText.errorText
+            isErrorEnabled = if(this@AwesomeFormPrefixedEditText.isErrorEnabled) 1 else 0
+            assistiveText = this@AwesomeFormPrefixedEditText.assistiveText
         }
     }
 
@@ -292,7 +284,6 @@ class AwesomeFormNormalEditText(context: Context, attrs: AttributeSet) :
             removeError()
         }
     }
-
     override fun dispatchSaveInstanceState(container: SparseArray<Parcelable>) {
         super.dispatchFreezeSelfOnly(container)
     }
@@ -304,7 +295,6 @@ class AwesomeFormNormalEditText(context: Context, attrs: AttributeSet) :
     internal class SavedState : BaseSavedState {
 
         internal var childrenStates: SparseArray<Parcelable>? = null
-
         internal var isErrorEnabled = 0 // 0 false, 1 true
         internal var assistiveText : String? = null
         internal var errorText : String? = null
@@ -339,5 +329,15 @@ class AwesomeFormNormalEditText(context: Context, attrs: AttributeSet) :
 
             }
         }
+    }
+
+    @ColorInt
+    fun getThemeColor(
+        context: Context,
+        @AttrRes attributeColor: Int
+    ): Int {
+        val value = TypedValue()
+        context.theme.resolveAttribute(attributeColor, value, true)
+        return value.data
     }
 }
