@@ -4,7 +4,7 @@ Awesome forms using material component!
 [![](https://jitpack.io/v/edwnmrtnz/awesomeforms.svg)](https://jitpack.io/#edwnmrtnz/awesomeforms)
 
 ### Sample
-![Sample](https://github.com/edwnmrtnz/awesomeforms/blob/develop/docs/sample1.jpg)
+![Sample](https://github.com/edwnmrtnz/awesomeforms/blob/main/docs/sample1.jpg)
 
 
 ### Prerequisites
